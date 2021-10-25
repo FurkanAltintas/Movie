@@ -1,0 +1,32 @@
+﻿@model MvcMovieTicketSales.Models.EntityFramework.EmployeeSkill
+
+@{
+    ViewBag.Title = "Skill";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+    int i = 0;
+}
+
+<div class="alert alert-danger alert-dismissable">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <b>Önemli Bilgi:</b> Profilinizde sadece ilk 4 yeteneğiniz görülmektedir
+</div>
+
+@using (Html.BeginForm("Skill", "Employees", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.LabelFor(x => x.Skill.Name, "Yetenek Adı")
+        @Html.DropDownListFor(x => x.SkillId, (IEnumerable<SelectListItem>)ViewBag.Skill, "Yetenek Seçiniz", new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.Degree, "Yetenek Derecesi")
+        @Html.TextBoxFor(x => x.Degree, new { @class = "form-control", @placeholder = "Yetenek Derecesi", type = "number" })
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="fcbtn btn btn-success btn-outline btn-1e">Yetenek Ekle</button>
+    </div>
+}
+
+@Html.Action("SkillList", "Employees")

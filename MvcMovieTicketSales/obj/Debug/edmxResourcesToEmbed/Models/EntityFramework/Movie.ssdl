@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MovieModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Celebrite">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="100" />
+    <Property Name="Height" Type="nvarchar" MaxLength="50" />
+    <Property Name="Weight" Type="nvarchar" MaxLength="50" />
+    <Property Name="EyeColor" Type="nvarchar" MaxLength="50" />
+    <Property Name="HairColor" Type="nvarchar" MaxLength="50" />
+    <Property Name="Birthday" Type="nvarchar" MaxLength="50" />
+    <Property Name="Language" Type="nvarchar" MaxLength="50" />
+    <Property Name="Hobby" Type="nvarchar" MaxLength="50" />
+    <Property Name="Overview" Type="nvarchar" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="CelebriteDetail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="CelebriteId" Type="int" />
+    <Property Name="MovieId" Type="int" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Image" Type="nvarchar" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="CelebriteFollow">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CelebriteId" Type="int" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Icon" Type="nvarchar" MaxLength="50" />
+    <Property Name="Url" Type="nvarchar" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="Director">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MovieId" Type="int" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Movie">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Time" Type="nvarchar" MaxLength="50" />
+    <Property Name="Release" Type="nvarchar" MaxLength="50" />
+    <Property Name="Language" Type="nvarchar" MaxLength="50" />
+    <Property Name="Cinema" Type="nvarchar" MaxLength="50" />
+    <Property Name="Image" Type="nvarchar" MaxLength="250" />
+    <Property Name="Overview" Type="nvarchar" MaxLength="250" />
+    <Property Name="Trailer" Type="nvarchar" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="MovieCategory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MovieId" Type="int" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Writer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MovieId" Type="int" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <Association Name="FK_CelebriteDetail_Celebrite">
+    <End Role="Celebrite" Type="Self.Celebrite" Multiplicity="0..1" />
+    <End Role="CelebriteDetail" Type="Self.CelebriteDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Celebrite">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CelebriteDetail">
+        <PropertyRef Name="CelebriteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CelebriteFollow_Celebrite">
+    <End Role="Celebrite" Type="Self.Celebrite" Multiplicity="0..1" />
+    <End Role="CelebriteFollow" Type="Self.CelebriteFollow" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Celebrite">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CelebriteFollow">
+        <PropertyRef Name="CelebriteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Director_Movie">
+    <End Role="Movie" Type="Self.Movie" Multiplicity="0..1" />
+    <End Role="Director" Type="Self.Director" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Movie">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Director">
+        <PropertyRef Name="MovieId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MovieCategory_Movie">
+    <End Role="Movie" Type="Self.Movie" Multiplicity="0..1" />
+    <End Role="MovieCategory" Type="Self.MovieCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Movie">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MovieCategory">
+        <PropertyRef Name="MovieId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Writer_Movie">
+    <End Role="Movie" Type="Self.Movie" Multiplicity="0..1" />
+    <End Role="Writer" Type="Self.Writer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Movie">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Writer">
+        <PropertyRef Name="MovieId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MovieModelStoreContainer">
+    <EntitySet Name="Celebrite" EntityType="Self.Celebrite" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CelebriteDetail" EntityType="Self.CelebriteDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CelebriteFollow" EntityType="Self.CelebriteFollow" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Director" EntityType="Self.Director" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Movie" EntityType="Self.Movie" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MovieCategory" EntityType="Self.MovieCategory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Writer" EntityType="Self.Writer" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_CelebriteDetail_Celebrite" Association="Self.FK_CelebriteDetail_Celebrite">
+      <End Role="Celebrite" EntitySet="Celebrite" />
+      <End Role="CelebriteDetail" EntitySet="CelebriteDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CelebriteFollow_Celebrite" Association="Self.FK_CelebriteFollow_Celebrite">
+      <End Role="Celebrite" EntitySet="Celebrite" />
+      <End Role="CelebriteFollow" EntitySet="CelebriteFollow" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Director_Movie" Association="Self.FK_Director_Movie">
+      <End Role="Movie" EntitySet="Movie" />
+      <End Role="Director" EntitySet="Director" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MovieCategory_Movie" Association="Self.FK_MovieCategory_Movie">
+      <End Role="Movie" EntitySet="Movie" />
+      <End Role="MovieCategory" EntitySet="MovieCategory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Writer_Movie" Association="Self.FK_Writer_Movie">
+      <End Role="Movie" EntitySet="Movie" />
+      <End Role="Writer" EntitySet="Writer" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

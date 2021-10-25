@@ -1,0 +1,66 @@
+﻿@model MvcMovieTicketSales.Models.CelebriteInfo
+
+@{
+    ViewBag.Title = "NewFilms";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- breadcrumb area start -->
+<section class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-area-content">
+                    <h1>@Model.celebrite.FullName</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section><!-- breadcrumb area end -->
+<!-- transformers area start -->
+<section class="transformers-area">
+    <div class="container">
+        <div class="transformers-box">
+            <div class="row flexbox-center">
+                <div class="col-lg-12">
+                    <div class="row flexbox-center">
+                        <div class="col-lg-12 text-center text-lg-right">
+                            <div class="portfolio-menu">
+                                <ul>
+                                    <li data-filter=".biyografi"><a href="/Celebritie/Details/@Model.celebrite.Id">Biyografi</a></li>
+                                    <li data-filter=".filmografi"><a href="/Celebritie/Filmography/@Model.celebrite.Id">Filmografi</a></li>
+                                    <li data-filter=".yenifilmler" class="active"><a href="/Celebritie/NewFilms/@Model.celebrite.Id">Yeni Filmleri</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row portfolio-item">
+                                @foreach (var item in Model.celebriteDetail)
+                                {
+                                    <div class="col-md-3 col-sm-6">
+                                        <div class="single-portfolio">
+                                            <div class="single-portfolio-img">
+                                                <img src="@item.Movie.Image" alt="@item.Movie.Name" style="width: auto; height: 409px;" />
+                                                <a href="@item.Movie.Trailer" class="popup-youtube">
+                                                    <i class="icofont icofont-ui-play"></i>
+                                                </a>
+                                            </div>
+                                            <div class="portfolio-content" align="center">
+                                                <h2><a href="/Movie/Details/@item.Movie.Id">@MvcMovieTicketSales.Utils.MovieTicket.Movie(item.Movie.Name.ToUpper())</a></h2>
+                                                <h6 style="color: #ffffff8c;">@item.Movie.Release.Value.ToString("dd.MM.yyyy")</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

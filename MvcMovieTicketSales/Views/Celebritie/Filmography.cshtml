@@ -1,0 +1,72 @@
+﻿@model MvcMovieTicketSales.Models.CelebriteInfo
+
+@{
+    ViewBag.Title = "Filmography";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- breadcrumb area start -->
+<section class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-area-content">
+                    <h1>@Model.celebrite.FullName</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section><!-- breadcrumb area end -->
+<!-- transformers area start -->
+<section class="transformers-area">
+    <div class="container">
+        <div class="transformers-box" style="margin-bottom: 40px;">
+            <div class="row flexbox-center">
+                <div class="col-lg-12">
+                    <div class="row flexbox-center">
+                        <div class="col-lg-12 text-center text-lg-right">
+                            <div class="portfolio-menu">
+                                <ul>
+                                    <li data-filter=".biyografi"><a href="/Celebritie/Details/@Model.celebrite.Id">Biyografi</a></li>
+                                    <li data-filter=".filmografi" class="active"><a href="/Celebritie/Filmography/@Model.celebrite.Id">Filmografi</a></li>
+                                    <li data-filter=".yenifilmler"><a href="/Celebritie/NewFilms/@Model.celebrite.Id">Yeni Filmleri</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="transformers-content mtr-30">
+                        <table class="table" style="margin-top: 20px;">
+                            <thead>
+                                <tr>
+                                    <th>YIL</th>
+                                    <th>BAŞLIK</th>
+                                    <th>MESLEĞİ</th>
+                                    <th width="150px">KULLANICI PUANI</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.celebriteDetail)
+                                {
+                                    <tr>
+                                        <td>@item.Movie.Release.Value.ToString("dd.MM.yyyy")</td>
+                                        <td>@item.Movie.Name</td>
+                                        <td>Oyuncu</td>
+                                        <td>
+                                            <div class="author-review">
+                                                <i class="icofont icofont-star"></i>
+                                                <i class="icofont icofont-star"></i>
+                                                <i class="icofont icofont-star"></i>
+                                                <i class="icofont icofont-star"></i>
+                                                <i class="icofont icofont-star"></i>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

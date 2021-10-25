@@ -1,0 +1,49 @@
+﻿@using MvcMovieTicketSales.Models.EntityFramework
+@model List<MovieType>
+
+@{
+    ViewBag.Title = "Category";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="portfolio-area pt-60" style="padding-top: 135px; padding-bottom: 135px;">
+    <div class="container">
+        <p align="center" style="margin-top: 10px;">
+            <a style="color:#ffffff;">@Model.Count()</a> tane @ViewBag.category filmi bulunmaktadır
+        </p>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row portfolio-item">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-md-3 col-sm-6 Hepsi @item.MovieCategory.Name @item.Movie.Release.Value.ToString("yyyy")">
+                            <div class="single-portfolio">
+                                <div class="single-portfolio-img">
+                                    <img src="@item.Movie.Image" alt="@item.Movie.Name" style="width: auto; height: 409px;" />
+                                    <a href="@item.Movie.Trailer" class="popup-youtube">
+                                        <i class="icofont icofont-ui-play"></i>
+                                    </a>
+                                </div>
+                                <div class="portfolio-content">
+                                    <h2><a href="/Movie/Details/@item.Movie.Id">@item.Movie.Name</a></h2>
+
+                                    <div class="review">
+                                        <div class="author-review">
+                                            <i class="icofont icofont-star"></i>
+                                            <i class="icofont icofont-star"></i>
+                                            <i class="icofont icofont-star"></i>
+                                            <i class="icofont icofont-star"></i>
+                                            <i class="icofont icofont-star"></i>
+                                        </div>
+                                        <h4>180k voters</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

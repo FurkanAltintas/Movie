@@ -1,0 +1,25 @@
+﻿@model MvcMovieTicketSales.Models.DirectorInfo
+
+@{
+    ViewBag.Title = "Movie Director";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@using (Html.BeginForm("MovieDirector", "Movies", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.LabelFor(x => x.movie.Id, "Film Seçiniz")
+        @Html.DropDownListFor(x => x.movie.Id, (IEnumerable<SelectListItem>)ViewBag.Movie, "Film Seçiniz", new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.director.Id, "Oyuncu Seçiniz")
+        @Html.DropDownListFor(x => x.director.Id, (IEnumerable<SelectListItem>)ViewBag.Director, "Yönetmen Seçiniz", new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @ViewBag.Error
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">Filme Yönetmen Atama İşlemi</button>
+    </div>
+}
+

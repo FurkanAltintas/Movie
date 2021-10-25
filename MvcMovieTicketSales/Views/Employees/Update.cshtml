@@ -1,0 +1,76 @@
+﻿@model MvcMovieTicketSales.Models.EntityFramework.Employee
+
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@using (Html.BeginForm("Update", "Employees", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="col-md-12">     
+            <div class="col-md-12 col-xs-12">
+                <div class="white-box">
+                    <div class="user-bg" style="height: 315px;">
+                        <img width="100%" alt="user" src="~/Images/cars3.jpg">
+                        <div class="overlay-box" style="background: #171717;">
+                            <div class="user-content" style="padding: 90px; margin: 0px;">
+                                <a href="javascript:void(0)"><img src="@Model.Profile" class="thumb-lg img-circle" alt="img"></a>
+                                <h4 class="text-white">@Model.Name @Model.Surname </h4>
+                                <h5 class="text-white">@Model.Email</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="user-btm-box">
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.Name, "Adı")
+                            @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.Surname, "Soyadı")
+                            @Html.TextBoxFor(x => x.Surname, new { @class = "form-control" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.Email, "Email")
+                            @Html.TextBoxFor(x => x.Email, new { @class = "form-control", @type = "email" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.Profile, "Profil")
+                            @Html.TextBoxFor(x => x.Profile, new { @class = "form-control", @type = "file" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.Phone, "Telefon")
+                            @Html.TextBoxFor(x => x.Phone, new { @class = "form-control", @type = "tel" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.Address, "Adres")
+                            @Html.TextAreaFor(x => x.Address, 5, 10, new { @class = "form-control" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.Information, "Özet")
+                            @Html.TextAreaFor(x => x.Information, 5, 10, new { @class = "form-control" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.Password, "Yeni Parola")
+                            @Html.PasswordFor(x => x.Password, new { @class = "form-control" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.RPassword, "Yeni Parola (Tekrar)")
+                            @Html.PasswordFor(x => x.RPassword, new { @class = "form-control" })
+                        </div>
+
+                        <button type="submit" class="btn btn-success">Güncelle</button>
+
+                    </div>
+                </div>
+            </div>
+
+    </div>
+}

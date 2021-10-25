@@ -1,0 +1,66 @@
+﻿@model MvcMovieTicketSales.Models.MovieFirstType
+
+@{
+    ViewBag.Title = "Movie Update";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@using (Html.BeginForm("MovieUpdate", "Movies", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="col-sm-12 white-box">
+        <div class="col-sm-9 float-left">
+            <div class="form-group">
+                @Html.LabelFor(x => x.movie.Name, "Filmin Adı")
+                @Html.TextBoxFor(x => x.movie.Name, new { @class = "form-control", @placeholder = "Filmin Adı" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(x => x.movie.Time, "Filmin Süresi")
+                @Html.TextBoxFor(x => x.movie.Time, new { @class = "form-control", @placeholder = "Filmin Süresi" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(x => x.movie.Release, "Filmin Vizyon Tarihi") (@Model.movie.Release.Value.ToString("dd.MM.yyyy"))
+                @Html.TextBoxFor(x => x.movie.Release, "{0:dd.MM.yyyy}", new { @class = "form-control", @type = "date" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(x => x.movie.Trailer, "Filmin Fragmanı")
+                @Html.TextBoxFor(x => x.movie.Trailer, new { @class = "form-control", @placeholder = "Filmin Fragmanı" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(x => x.movie.Image, "Görsel")
+                @Html.TextBoxFor(x => x.movie.Image, new { @class = "form-control", @type = "file" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(x => x.movie.Overview, "Filmin Özeti")
+                @Html.TextAreaFor(x => x.movie.Overview, 7, 1, new { @class = "form-control", @placeholder = "Filmin Özeti" })
+            </div>
+        </div>
+        <div class="col-sm-3 float-right">
+            <div class="form-group">
+                <img src="@Model.movie.Image" style="width: 400px; height: auto;" />
+            </div>
+        </div>
+
+        <div class="col-sm-12">
+            <div class="form-group">
+                @Html.LabelFor(x => x.movieCategory.Name, "Filmin Kategorisi")
+                @Html.DropDownListFor(x => x.movieCategory.Id, (IEnumerable<SelectListItem>)ViewBag.movieCategory, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(x => x.movie.Slider, "Slider ?")
+                @Html.DropDownListFor(x => x.movie.Slider, new List<SelectListItem>
+                {
+                    new SelectListItem {Text = "Evet", Value = "True"},
+                    new SelectListItem {Text = "Hayır", Value = "False"}
+                }, "Slider Olsun Mu ?", new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(x => x.director.FullName, "Yönetmen")
+                @Html.DropDownListFor(x => x.director.Id, (IEnumerable<SelectListItem>)ViewBag.Director, "Yönetmen Seçiniz", new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <button type="submit" class="fcbtn btn btn-success btn-outline btn-1e">Film Güncelle</button>
+            </div>
+        </div>
+    </div>
+}
+

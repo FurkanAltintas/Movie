@@ -1,0 +1,287 @@
+﻿@model MvcMovieTicketSales.Models.MovieDirectorWriter
+
+@{
+    ViewBag.Title = "MovieDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int i = 0;
+    int y = 0;
+}
+
+<section class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-area-content">
+                    <h1>@Model.movie.Name</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section><!-- breadcrumb area end -->
+<!-- transformers area start -->
+<section class="transformers-area">
+    <div class="container">
+        <div class="transformers-box">
+            <div class="row flexbox-center">
+                <div class="col-lg-5 text-lg-left text-center">
+                    <div class="transformers-content">
+                        <img src="@Model.movie.Image" alt="@Model.movie.Name" />
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="transformers-content">
+                        <h2>@Model.movie.Name</h2>
+                        <p>
+                            @foreach (var item in Model.movieType)
+                            {
+                                @item.MovieCategory.Name
+                            }
+                        </p>
+                        <ul>
+                            <!--Film-->
+                            <li>
+                                <div class="transformers-left">
+                                    Film:
+                                </div>
+                                <div class="transformers-right">
+                                    @foreach (var item in Model.movieType.Take(1))
+                                    {
+                                        <a href="/Movie/Category/@item.MovieCategoryId">
+                                            @item.MovieCategory.Name
+                                        </a>
+                                    }
+                                </div>
+                            </li>
+                            <!--Yönetmen-->
+                            <li>
+                                <div class="transformers-left">
+                                    Yönetmen:
+                                </div>
+                                <div class="transformers-right">
+                                    @if (Model.directorDetail.Count() == 0)
+                                    {
+                                        <a>Eklenmedi</a>
+                                    }
+                                    else
+                                    {
+                                        foreach (var item in Model.directorDetail)
+                                        {
+                                            if (Model.directorDetail.Count() == 1)
+                                            {
+                                                <a href="/Director/Details/@item.Id">@item.Director.FullName</a>
+                                            }
+                                            else
+                                            {
+                                                i++;
+                                                if (Model.directorDetail.Count() != i)
+                                                {
+                                                    <a href="/Director/Details/@item.Id">@item.Director.FullName, </a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="/Director/Details/@item.Id">@item.Director.FullName</a>
+                                                }
+                                            }
+                                        }
+                                    }
+                                </div>
+                            </li>
+                            <!--Oyuncular-->
+                            <li>
+                                <div class="transformers-left">
+                                    Oyuncular:
+                                </div>
+                                <div class="transformers-right">
+                                    @if (Model.celebriteDetail.Count() == 0)
+                                    {
+                                        <a>Eklenmedi</a>
+                                    }
+                                    else
+                                    {
+                                        foreach (var item in Model.celebriteDetail)
+                                        {
+                                            if (Model.celebriteDetail.Count() == 1)
+                                            {
+                                                <a href="/Celebritie/Details/@item.Celebrite.Id">@item.Celebrite.FullName</a>
+                                            }
+                                            else
+                                            {
+                                                y++;
+                                                if (Model.celebriteDetail.Count() != y)
+                                                {
+                                                    <a href="/Celebritie/Details/@item.Celebrite.Id">@item.Celebrite.FullName, </a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="/Celebritie/Details/@item.Celebrite.Id">@item.Celebrite.FullName</a>
+                                                }
+                                            }
+                                        }
+                                    }
+                                </div>
+                            </li>
+                            <!--Zaman-->
+                            <li>
+                                <div class="transformers-left">
+                                    Süre:
+                                </div>
+                                <div class="transformers-right">
+                                    @if (Model.movie.Time == null)
+                                    {
+                                        <a>Belirtilmedi</a>
+                                    }
+                                    else
+                                    {
+                                        @Model.movie.Time
+                                    }
+                                </div>
+                            </li>
+                            <!--Çıkış Tarihi-->
+                            <li>
+                                <div class="transformers-left">
+                                    Vizyon Tarihi:
+                                </div>
+                                <div class="transformers-right">
+                                    @Model.movie.Release.Value.ToString("dd.MM.yyyy")
+                                </div>
+                            </li>
+                            <!--Listeye Ekle-->
+                            <li>
+                                <div class="transformers-left">
+                                    Listeye Ekle:
+                                </div>
+                                <div class="transformers-right">
+                                    @if (Session["MId"] == null)
+                                    {
+                                        <a>
+                                            <input id="@Model.movie.Id" type="checkbox" data-toggle="modal" data-target="#watchListModal" />
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        if (ViewBag.WatchList != null)
+                                        {
+                                            <a href="/Movie/WatchListAdd/@Model.movie.Id">
+                                                <input id="@Model.movie.Id" type="checkbox" name="watchListBool" checked="true" />
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a href="/Movie/WatchListAdd/@Model.movie.Id">
+                                                <input id="@Model.movie.Id" type="checkbox" name="watchListBool" />
+                                            </a>
+                                        }
+                                    }
+                                </div>
+                            </li>
+                            <!--Fragman-->
+                            <li>
+                                <iframe width="560" height="270" src="@MvcMovieTicketSales.Utils.YoutubeEmbed.Embed(Model.movie.Trailer)" title="@Model.movie.Name" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </li>
+                            <!--Paylaş-->
+                            <li>
+                                <div class="transformers-left">
+                                    Paylaş:
+                                </div>
+                                <div class="transformers-right">
+                                    <a href="https://www.facebook.com/sharer/sharer.php?url=@Url.Encode(Request.Url.ToString())&t=@Url.Encode(Model.movie.Name)&text=@Url.Encode(Model.movie.Trailer)" target="_blank"><i class="icofont icofont-social-facebook"></i></a>
+                                    <a href="https://twitter.com/intent/tweet?url=@Url.Encode(Request.Url.ToString())&text=@Url.Encode(Model.movie.Name)&text=@Url.Encode(Model.movie.Trailer)" target="_blank"><i class="icofont icofont-social-twitter"></i></a>
+                                    <a href="https://plus.google.com/share?url=@Url.Encode(Request.Url.ToString())" target="_blank"><i class="icofont icofont-social-google-plus"></i></a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            @if (Model.movie.Release.Value.Year < DateTime.Now.Year)
+            {
+                <a class="theme-btn"><i class="icofont icofont-ticket"></i> Biletler Artık Satılmamaktadır</a>
+            }
+            @if (Model.movie.Release.Value.Year > DateTime.Now.Year)
+            {
+                <a class="theme-btn"><i class="icofont icofont-ticket"></i> Film Daha Çıkmadı</a>
+            }
+            @if (Model.movie.Release.Value.Year == DateTime.Now.Year)
+            {
+                if (Session["MId"] == null)
+                {
+                    <button type="button" class="theme-btn" data-toggle="modal" data-target="#ticketModal">
+                        <i class="icofont icofont-ticket"></i>
+                        Bilet Satın Al
+                    </button>
+                }
+                else
+                {
+                    <a href="/Ticket/Index/@Model.movie.Id" class="theme-btn"><i class="icofont icofont-ticket"></i> Bilet Satın Al</a>
+                }
+            }
+        </div>
+    </div>
+</section><!-- transformers area end -->
+<!-- details area start -->
+<section class="details-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="details-content">
+                    <div class="details-overview">
+                        <h2>Genel Bakış</h2>
+                        <p> @Model.movie.Overview</p>
+                    </div>
+                    @Html.Action("List","Comment")
+                    @Html.Action("Index", "Comment")
+                </div>
+            </div>
+
+            <!--Reklam-->
+            <div class="col-lg-3 text-center text-lg-left">
+                <div class="portfolio-sidebar">
+                    <img src="~/Content/Moviepoint-Online-Movie-Template/assets/img/sidebar/sidebar1.png" alt="sidebar" />
+                    <img src="~/Content/Moviepoint-Online-Movie-Template/assets/img/sidebar/sidebar2.png" alt="sidebar" />
+                    <img src="~/Content/Moviepoint-Online-Movie-Template/assets/img/sidebar/sidebar4.png" alt="sidebar" />
+                </div>
+            </div>
+        </div>
+
+        <br /><br />
+
+    </div>
+</section>
+<!-- details area end -->
+<!-- Modal -->
+<div class="modal fade" id="ticketModal" tabindex="-1" role="dialog" aria-labelledby="ticketModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content col-md-12">
+            <div class="modal-header" align="center">
+                <h5 class="modal-title" id="ticketModalLabel" style="color: black;">
+                    Bilet Satın Almadan Önce
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Biletinizi almadan önce üye girişi yapınız</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="watchListModal" tabindex="-1" role="dialog" aria-labelledby="watchListModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content col-md-12">
+            <div class="modal-header" align="center">
+                <h5 class="modal-title" id="watchListModalLabel" style="color: black;">
+                    İzlenilecek Film Listesi
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>İzlenilecek listesine eklemek için giriş yapmanız gerekli</p>
+            </div>
+        </div>
+    </div>
+</div>

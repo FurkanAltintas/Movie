@@ -1,0 +1,57 @@
+﻿@using MvcMovieTicketSales.Models.EntityFramework
+@model List<Celebrite>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="portfolio-area pt-60" style="padding-top: 135px; padding-bottom: 135px;">
+    <div class="container">
+        @using (Html.BeginForm("Index", "Celebritie", FormMethod.Post))
+        {
+            <input type="text" name="txtAra" id="txtAra" placeholder="Oyuncu Ara" class="form-control" />
+            <br />
+        }
+        <div class="row flexbox-center">
+            <div class="col-lg-12 text-center text-lg-right">
+                <div class="portfolio-menu">
+                    <ul>
+                        <li data-filter="" class="active">Hepsi</li>
+                        <li data-filter=".Erkek">Erkek</li>
+                        <li data-filter=".Kadın">Kadın</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <hr />
+
+        <p align="center" style="margin-top: 10px;">
+            <a style="color:#ffffff">@Model.Count()</a> tane oyuncu bulunmaktadır |
+            <a style="color:#316aeb;">@Model.Where(x => x.Gender == true).Count()</a> tane erkek oyuncu bulunmaktadır |
+            <a style="color: #eb315a;">@Model.Where(x => x.Gender == false).Count()</a> tane kadın oyuncu bulunmaktadır
+        </p>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row portfolio-item">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-md-3 col-sm-6 @MvcMovieTicketSales.Utils.MovieMaleFemale.MaleFemale(item.Gender.ToString())">
+                            <div class="single-portfolio">
+                                <div class="single-portfolio-img">
+                                    <img src="@item.Image" alt="@item.FullName" />
+                                </div>
+                                <div class="portfolio-content">
+                                    <h2><a href="/Celebritie/Details/@item.Id">@item.FullName</a></h2>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

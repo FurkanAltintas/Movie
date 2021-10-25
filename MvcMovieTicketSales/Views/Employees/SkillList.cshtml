@@ -1,0 +1,98 @@
+﻿@using MvcMovieTicketSales.Models.EntityFramework
+@model List<EmployeeSkill>
+
+@{
+    int i = 0;
+}
+
+@if (Model.Count() != 0)
+{
+    <div class="alert alert-success alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <b>@ViewBag.Employe</b> personeline ait <b>@Model.Count()</b> tane yetenek bulunmaktadır
+    </div>
+
+    <div>
+        <table id="movies" class="table table-bordered table-hover text-center">
+            <thead>
+                <tr>
+                    <th class="text-center">#</th>
+                    <th class="text-center">ADI</th>
+                    <th class="text-center">DERECE</th>
+                    <th class="text-center">KAYIT TARİHİ</th>
+                    <th class="text-center">DURUM</th>
+                    <th class="text-center"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    i++;
+                <tr>
+                    <td>@i</td>
+                    <td>@item.Skill.Name</td>
+                    <td>
+                        @if (item.Degree <= 25)
+                        {
+                            <div class="label label-table label-danger">@item.Degree</div>
+                        }
+                        @if (item.Degree > 25 && item.Degree <= 50)
+                        {
+                            <div class="label label-table label-warning">@item.Degree</div>
+                        }
+                        @if (item.Degree > 50 && item.Degree <= 75)
+                        {
+                            <div class="label label-table label-primary">@item.Degree</div>
+                        }
+                        @if (item.Degree > 75 && item.Degree <= 100)
+                        {
+                            <div class="label label-table label-success">@item.Degree</div>
+                        }
+                    </td>
+                    <td>@(item.Skill.History==null?"Eklenmedi":item.Skill.History.Value.ToString("dd MMMM yyyy \n HH:mm"))</td>
+                    <td>
+                        @if (item.Status == true)
+                        {
+                            <a href="/Skill/Passive/@item.Id" data-toggle="tooltip" data-original-title="Aktif">
+                                <div class="label label-table label-success">Aktif</div>
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="/Skill/Active/@item.Id" data-toggle="tooltip" data-original-title="Pasif">
+                                <div class="label label-table label-danger">Pasif</div>
+                            </a>
+                        }
+                    </td>
+                    <td>
+                        <a href="/Skill/Detail/@item.Id" class="btn btn-warning btn-icon-split" data-toggle="tooltip" data-original-title="Detay">
+                            <span class="icon text-white-50">
+                                <i class="fa fa-question"></i>
+                            </span>
+                        </a>
+
+                        <a href="/Employees/Update/@item.Id" class="btn btn-success btn-icon-split" title="Güncelle" data-toggle="tooltip" data-original-title="Detay">
+                            <span class="icon text-white-50">
+                                <i class="fa fa-check"></i>
+                            </span>
+                        </a>
+
+                        <a href="/Employees/Delete/@item.Id" class="btn btn-danger btn-icon-split" title="Sil" data-toggle="tooltip" data-original-title="Detay">
+                            <span class="icon text-white-50">
+                                <i class="fa fa-trash"></i>
+                            </span>
+                        </a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div class="alert alert-danger alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <b>@ViewBag.Employe</b> personeline ait yetenek bulunmamaktadır
+    </div>
+}

@@ -1,0 +1,53 @@
+﻿@using MvcMovieTicketSales.Models.EntityFramework
+@model List<HallDetail>
+
+@{
+    ViewBag.Title = "HallDetail";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="col-sm-12">
+    <h3>@Html.Label("Filmler")</h3>
+    <div class="row">
+        @if (Model.Count() != 0)
+        {
+            foreach (var item in Model)
+            {
+                <div class="col-md-3 col-xs-12 col-sm-6">
+                    <img class="img-responsive" alt="@item.Movie.Name" src="@item.Movie.Image" style="height: 600px;">
+                    <div class="white-box">
+                        <div class="text-muted">
+                            <span class="m-r-10">@item.DateTime.Value.ToString("dd MMM yyyy")</span>
+                            <a class="text-muted m-l-10" href="#">
+                                @if (DateTime.Now >= item.DateTime)
+                                {
+                                    <i class="fa fa-clock-o" style="color: #9a3333;">
+                                    </i>
+                                }
+                                else
+                                {
+                                    <i class="fa fa-clock-o">
+                                    </i>
+                                }
+                                @item.DateTime.Value.ToString("HH:mm")
+                            </a>
+                        </div>
+                        <h3 class="m-t-20 m-b-20">@item.Movie.Name</h3>
+                        <p>@item.Movie.Overview.Substring(0, 150)</p>
+                        <a href="/Movie/Details/@item.Movie.Id" class="btn btn-success btn-rounded waves-effect waves-light m-t-20" target="_blank">Devamını Oku</a>
+                        <a href="/Movies/MovieUpdate/@item.MovieId" class="btn btn-primary btn-rounded waves-effect waves-light m-t-20" target="_blank">Düzenle</a>
+                        <a href="/Hall/HallMovieDelete/@item.Id" class="btn btn-danger btn-rounded waves-effect waves-light m-t-20" target="_blank">Sil</a>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <b>@ViewBag.Hall</b>'e ait film bulunmamaktadır
+            </div>
+        }
+    </div>
+</div>
+

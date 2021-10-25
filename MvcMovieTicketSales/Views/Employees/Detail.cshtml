@@ -1,0 +1,226 @@
+﻿@model MvcMovieTicketSales.Models.EmployeeSocialMedia
+
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-4 col-xs-12">
+        <div class="white-box">
+            <div class="user-bg">
+                <img width="100%" alt="user" src="@Model.employee.Profile">
+            </div>
+
+            <div class="user-btm-box">
+                <!-- .row -->
+                <div class="row text-center m-t-10">
+                    <div class="col-md-6 b-r"><strong>Name</strong><p>@Model.employee.Name @Model.employee.Surname</p></div>
+                    <div class="col-md-6"><strong>Designation</strong><p>@Model.employee.Authority.Name</p></div>
+                </div>
+                <!-- /.row -->
+                <hr>
+                <!-- .row -->
+                <div class="row text-center m-t-10">
+                    <div class="col-md-6 b-r"><strong>Email ID</strong><p>@Model.employee.Email</p></div>
+                    <div class="col-md-6"><strong>Phone</strong><p>@Model.employee.Phone</p></div>
+                </div>
+                <!-- /.row -->
+                <hr>
+                <!-- .row -->
+                <div class="row text-center m-t-10">
+                    <div class="col-md-12"><strong>Address</strong><p>@Model.employee.Address<br />Turkey</p></div>
+                </div>
+                <hr>
+                <!-- /.row -->
+                @if (Model.employeeFollow.Count() != 0)
+                {
+                    foreach (var item in Model.employeeFollow)
+                    {
+                        <div class="col-md-4 col-sm-4 text-center">
+                            <p class="text-danger">
+                                <a href="@item.Url" target="_blank">
+                                    @if (item.SocialMediaId == 20)
+                                    {
+                                        <i class="ti-game"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="ti-@item.SocialMedia.Name"></i>
+                                    }
+                                </a>
+                            </p>
+                            <h5>@item.Name</h5>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        Sosyal medya hesapları bulunmamaktadır
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8 col-xs-12">
+        <div class="white-box">
+            <!-- .tabs -->
+            <ul class="nav nav-tabs tabs customtab">
+                @*<li class="active tab"><a href="#home" data-toggle="tab"> <span class="visible-xs"><i class="fa fa-home"></i></span> <span class="hidden-xs">Activity</span> </a> </li>*@
+                <li class="active tab"><a href="#profile" data-toggle="tab"> <span class="visible-xs"><i class="fa fa-user"></i></span> <span class="hidden-xs">Profile</span> </a> </li>
+                <li class="tab"><a href="#settings" data-toggle="tab" aria-expanded="false"> <span class="visible-xs"><i class="fa fa-cog"></i></span> <span class="hidden-xs">Edit Detail</span> </a> </li>
+            </ul>
+            <!-- /.tabs -->
+            <div class="tab-content">
+                <!-- .tabs 1 -->
+                @*<div class="tab-pane active" id="home">
+                        <div class="steamline">
+                            <div class="sl-item">
+                                <div class="sl-left"> <img src="~/Content/eliteadmin/plugins/images/users/genu.jpg" alt="user" class="img-circle" /> </div>
+                                <div class="sl-right">
+                                    <div class="m-l-40">
+                                        <a href="#" class="text-info">John Doe</a> <span class="sl-date">5 minutes ago</span>
+                                        <p>assign a new task <a href="#"> Design weblayout</a></p>
+                                        <div class="m-t-20 row"><img src="~/Content/eliteadmin/plugins/images/img1.jpg" alt="user" class="col-md-3 col-xs-12" /> <img src="~/Content/eliteadmin/plugins/images/img2.jpg" alt="user" class="col-md-3 col-xs-12" /> <img src="~/Content/eliteadmin/plugins/images/img3.jpg" alt="user" class="col-md-3 col-xs-12" /></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="sl-item">
+                                <div class="sl-left"> <img src="~/Content/eliteadmin/plugins/images/users/sonu.jpg" alt="user" class="img-circle" /> </div>
+                                <div class="sl-right">
+                                    <div class="m-l-40">
+                                        <a href="#" class="text-info">John Doe</a> <span class="sl-date">5 minutes ago</span>
+                                        <div class="m-t-20 row">
+                                            <div class="col-md-2 col-xs-12"><img src="~/Content/eliteadmin/plugins/images/img1.jpg" alt="user" class="img-responsive" /></div>
+                                            <div class="col-md-9 col-xs-12">
+                                                <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet.  Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa</p>
+                                                <a href="#" class="btn btn-success"> Design weblayout</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="sl-item">
+                                <div class="sl-left"> <img src="~/Content/eliteadmin/plugins/images/users/ritesh.jpg" alt="user" class="img-circle" /> </div>
+                                <div class="sl-right">
+                                    <div class="m-l-40">
+                                        <a href="#" class="text-info">John Doe</a> <span class="sl-date">5 minutes ago</span>
+                                        <p class="m-t-10"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet.  Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="sl-item">
+                                <div class="sl-left"> <img src="~/Content/eliteadmin/plugins/images/users/govinda.jpg" alt="user" class="img-circle" /> </div>
+                                <div class="sl-right">
+                                    <div class="m-l-40">
+                                        <a href="#" class="text-info">John Doe</a> <span class="sl-date">5 minutes ago</span>
+                                        <p>assign a new task <a href="#"> Design weblayout</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>*@
+                <!-- /.tabs1 -->
+                <!-- .tabs2 -->
+                <div class="tab-pane active" id="profile">
+                    <div class="row">
+                        <div class="col-md-3 col-xs-6 b-r">
+                            <strong>Full Name</strong> <br>
+                            <p class="text-muted">@Model.employee.Name @Model.employee.Surname</p>
+                        </div>
+                        <div class="col-md-3 col-xs-6 b-r">
+                            <strong>Mobile</strong> <br>
+                            <p class="text-muted">@Model.employee.Phone</p>
+                        </div>
+                        <div class="col-md-3 col-xs-6 b-r">
+                            <strong>Email</strong> <br>
+                            <p class="text-muted">@Model.employee.Email</p>
+                        </div>
+                        <div class="col-md-3 col-xs-6">
+                            <strong>Location</strong> <br>
+                            <p class="text-muted">@Model.employee.Address</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <p class="m-t-30">@(Html.Raw(Model.employee.Information))</p>
+                    <h4 class="font-bold m-t-30">Skill Set</h4>
+                    <hr>
+                    <h5>Wordpress <span class="pull-right">80%</span></h5>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width:80%;"> <span class="sr-only">50% Complete</span> </div>
+                    </div>
+                    <h5>HTML 5 <span class="pull-right">90%</span></h5>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width:90%;"> <span class="sr-only">50% Complete</span> </div>
+                    </div>
+                    <h5>jQuery <span class="pull-right">50%</span></h5>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:50%;"> <span class="sr-only">50% Complete</span> </div>
+                    </div>
+                    <h5>Photoshop <span class="pull-right">70%</span></h5>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%;"> <span class="sr-only">50% Complete</span> </div>
+                    </div>
+                </div>
+                <!-- /.tabs2 -->
+                <!-- .tabs3 -->
+                <div class="tab-pane" id="settings">
+                    @using (Html.BeginForm("ProfileUpdate", "Employee", FormMethod.Post, new { @class = "form-horizontal form-material", enctype = "multipart/form-data" }))
+                    {
+                        <div class="form-group">
+                            <label class="col-md-12">Full Name</label>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(x => x.employee.Name, new { @class = "form-control form-control-line", @placeholder = "Name" })
+                            </div>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(x => x.employee.Surname, new { @class = "form-control form-control-line", @placeholder = "SurName" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="example-email" class="col-md-12">Email / Phone</label>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(x => x.employee.Email, new { @class = "form-control form-control-line", @placeholder = "Email", @type = "email" })
+                            </div>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(x => x.employee.Phone, new { @class = "form-control form-control-line", @placeholder = "123 456 7890", @type = "tel" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-12">Password</label>
+                            <div class="col-md-6">
+                                <input type="password" value="password" name="password" id="password" class="form-control form-control-line">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="password" value="password" name="rpassword" id="rpassword" class="form-control form-control-line" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-12">Message</label>
+                            <div class="col-md-12">
+                                @Html.TextAreaFor(x => x.employee.Information, 5, 1, new { @class = "form-control form-control-line" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-12">Profil</label>
+                            <div class="col-md-12">
+                                @Html.TextBoxFor(x => x.employee.Profile, new { @class = "form-control form-control-line", @type = "file" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <button type="submit" class="btn btn-success">Update Profile</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <!-- /.tabs3 -->
+            </div>
+        </div>
+    </div>
+</div>
+

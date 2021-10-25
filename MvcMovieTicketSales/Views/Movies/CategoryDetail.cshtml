@@ -1,0 +1,79 @@
+﻿@using MvcMovieTicketSales.Models.EntityFramework
+@model List<MovieType>
+
+@{
+    ViewBag.Title = "CategoryDetail";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+    int i = 0;
+}
+
+@if (Model.Count() != 0)
+{
+    <div class="alert alert-success alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <b>@ViewBag.Category</b> kategorisine ait <b>@Model.Count()</b> tane film bulunmaktadır
+    </div>
+
+    <div>
+        <table id="movies" class="table table-bordered table-hover text-center">
+            <thead>
+                <tr>
+                    <th class="text-center">#</th>
+                    <th class="text-center">ADI</th>
+                    <th class="text-center">GÖRSEL</th>
+                    <th class="text-center">SÜRESİ</th>
+                    <th class="text-center">VİZYON TARİHİ</th>
+                    <th class="text-center">FRAGMAN</th>
+                    <th class="text-center">SLIDER</th>
+                    <th class="text-center"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    i++;
+                    <tr>
+                        <td>@i</td>
+                        <td>@item.Movie.Name</td>
+                        <td><a href="@item.Movie.Image" target="_blank"><img src="@item.Movie.Image" style="width: 50px; height:auto;" /></a></td>
+                        <td>@(item.Movie.Time!=null?item.Movie.Time:"Süresi verilmedi")</td>
+                        <td>@(item.Movie.Release.Value.ToString("dd.MM.yyyy")!=null?item.Movie.Release.Value.ToString("dd.MM.yyyy"):"Vizyon tarihi verilmedi")</td>
+                        <td><a href="@item.Movie.Trailer" target="_blank">@item.Movie.Name Fragmanı</a></td>
+                        <td><a href="/Dashboard/Movies/Slider/@item.Id"><input id="@item.Id" type="checkbox" checked="@item.Movie.Slider" /></a></td>
+                        <td>
+                            <a href="/Movies/MovieDetail/@item.Id" class="btn btn-warning btn-icon-split" data-toggle="tooltip" data-original-title="Detay">
+                                <span class="icon text-white-50">
+                                    <i class="fa fa-question"></i>
+                                </span>
+                            </a>
+
+                            <a href="/Movies/MovieUpdate/@item.Id" class="btn btn-success btn-icon-split" title="Güncelle" data-toggle="tooltip" data-original-title="Detay">
+                                <span class="icon text-white-50">
+                                    <i class="fa fa-check"></i>
+                                </span>
+                            </a>
+
+                            <a href="/Movies/MovieDelete/@item.Id" class="btn btn-danger btn-icon-split" title="Sil" data-toggle="tooltip" data-original-title="Detay">
+                                <span class="icon text-white-50">
+                                    <i class="fa fa-trash"></i>
+                                </span>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div class="alert alert-danger alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <b>@ViewBag.Category</b> kategorisine ait film bulunmamaktadır
+    </div>
+}
+
+
+
+<a href="@Url.Action("MovieAdd","Movies")" class="fcbtn btn btn-success btn-outline btn-1e">Film Ekle</a>

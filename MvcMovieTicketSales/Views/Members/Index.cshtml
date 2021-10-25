@@ -1,0 +1,75 @@
+﻿@using MvcMovieTicketSales.Models.EntityFramework
+@model List<Member>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+    int i = 0;
+}
+
+<div>
+    <table id="movies" class="table table-bordered table-hover text-center">
+        <thead>
+            <tr>
+                <th class="text-center">#</th>
+                <th class="text-center">ADI SOYADI</th>
+                <th class="text-center">TELEFON NUMARASI</th>
+                <th class="text-center">EMAIL</th>
+                <th class="text-center">KAYIT TARİHİ</th>
+                <th class="text-center">HESAP DURUMU</th>
+                <th class="text-center"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                i++;
+                <tr>
+                    <td>@i</td>
+                    <td>@item.Name @item.SurName</td>
+                    <td>@item.Phone</td>
+                    <td>@item.Email</td>
+                    <td>@item.History.Value.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>
+                        @if (item.Status == true)
+                        {
+                            <a href="/Members/MemberActive/@item.Id" data-toggle="tooltip" data-original-title="Aktif">
+                                <div class="label label-table label-success">Aktif</div>
+                            </a>
+
+                        }
+                        else
+                        {
+                            <a href="/Members/MemberPassive/@item.Id" data-toggle="tooltip" data-original-title="Pasif">
+                                <div class="label label-table label-danger">Pasif</div>
+                            </a>
+                        }
+                    </td>
+                    <td>
+                        <a href="/Members/MemberDetail/@item.Id" class="btn btn-warning btn-icon-split" data-toggle="tooltip" data-original-title="Detay">
+                            <span class="icon text-white-50">
+                                <i class="fa fa-question"></i>
+                            </span>
+                        </a>
+
+                        <a href="/Members/MemberUpdate/@item.Id" class="btn btn-success btn-icon-split" data-toggle="tooltip" data-original-title="Güncelle">
+                            <span class="icon text-white-50">
+                                <i class="fa fa-check"></i>
+                            </span>
+                        </a>
+
+                        <a href="/Members/MemberDelete/@item.Id" class="btn btn-danger btn-icon-split" data-toggle="tooltip" data-original-title="Sil">
+                            <span class="icon text-white-50">
+                                <i class="fa fa-trash"></i>
+                            </span>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<a href="@Url.Action("MemberAdd","Members")" class="fcbtn btn btn-success btn-outline btn-1e">Üye Ekle</a>
+

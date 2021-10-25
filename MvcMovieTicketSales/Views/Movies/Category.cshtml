@@ -1,0 +1,53 @@
+﻿@using MvcMovieTicketSales.Models.EntityFramework
+@model List<MovieCategory>
+
+@{
+    ViewBag.Title = "Category";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+    int i = 0;
+}
+
+<div>
+    <table id="movies" class="table table-bordered table-hover text-center">
+        <thead>
+            <tr>
+                <th class="text-center">#</th>
+                <th class="text-center">ADI</th>
+                <th class="text-center"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                i++;
+                <tr>
+                    <td>@i</td>
+                    <td>@item.Name</td>
+                    <td>
+                        <a href="/Movies/CategoryDetail/@item.Id" class="btn btn-warning btn-icon-split"  data-toggle="tooltip" data-original-title="Detay">
+                            <span class="icon text-white-50">
+                                <i class="fa fa-question"></i>
+                            </span>
+                        </a>
+
+                        <a href="/Movies/CategoryUpdate/@item.Id" class="btn btn-success btn-icon-split"  data-toggle="tooltip" data-original-title="Güncelle">
+                            <span class="icon text-white-50">
+                                <i class="fa fa-check"></i>
+                            </span>
+                        </a>
+
+                        <a href="/Movies/CategoryDelete/@item.Id" class="btn btn-danger btn-icon-split"  data-toggle="tooltip" data-original-title="Sil">
+                            <span class="icon text-white-50">
+                                <i class="fa fa-trash"></i>
+                            </span>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<a href="@Url.Action("CategoryAdd","Movies")" class="fcbtn btn btn-success btn-outline btn-1e">Kategori Ekle</a>
+

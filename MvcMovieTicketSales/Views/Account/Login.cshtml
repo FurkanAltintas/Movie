@@ -1,0 +1,42 @@
+﻿@model MvcMovieTicketSales.Models.EntityFramework.Member
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-area-content">
+                    <h1>GİRİŞ YAP</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="transformers-area" style="margin-bottom: 20px;">
+    <div class="container">
+        @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+        {
+            <div class="transformers-box">
+                <div class="row flexbox-center">
+                    <h2>Oturum Aç</h2>
+                    @Html.TextBoxFor(x => x.Email, new { @placeholder = "E-Mail", @style = "margin-top: 20px;" })
+                    @Html.PasswordFor(x => x.Password, new { @placeholder = "Şifre", @style = "margin-top: 20px;" })
+                    <div align="center" style="margin-top: 20px;">
+                        <button type="submit">Giriş Yap</button>
+                    </div>
+                </div>
+                <div align="center" style="margin-top: 20px;">
+                    <h5>@ViewBag.Error</h5>
+                </div>
+                <div align="center" style="margin-top: 20px;">
+                    <span>Hesabınız yok mu?<a href="@Url.Action("Register","Account")"> Hemen Kayıt Olun!</a></span>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+

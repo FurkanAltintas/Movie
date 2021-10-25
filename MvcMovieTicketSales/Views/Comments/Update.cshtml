@@ -1,0 +1,35 @@
+﻿@model MvcMovieTicketSales.Models.EntityFramework.Comment
+
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@using (Html.BeginForm("Update", "Comments", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.LabelFor(x => x.FullName, "Adı Soyadı")
+        @Html.TextBoxFor(x => x.FullName, new { @class = "form-control", @placeholder = "Adı Soyadı" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.Email, "Mail")
+        @Html.TextBoxFor(x => x.Email, new { @class = "form-control", @placeholder = "Mail" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.Phone, "Telefon")
+        @Html.TextBoxFor(x => x.Phone, new { @class = "form-control", @placeholder = "Telefon" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.Message, "Mesaj")
+        @Html.TextAreaFor(x => x.Message, 10, 0, new { @class = "form-control", @placeholder = "Mesaj" })
+    </div>
+
+    <div class="form-group">
+        @Html.HiddenFor(x => x.History, new { @class = "form-control", @placeholder = "Tarih" })
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-outline btn-success btn btn-1e">Comment Update</button>
+    </div>
+}

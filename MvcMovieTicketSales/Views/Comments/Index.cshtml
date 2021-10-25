@@ -1,0 +1,122 @@
+﻿@using MvcMovieTicketSales.Models.EntityFramework
+@model List<Comment>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+    int i = 0;
+}
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+<div class="white-box">
+    <table id="comments" class="table table-bordered table-hover text-center">
+        <thead>
+            <tr>
+                <th class="text-center">#</th>
+                <th class="text-center">ADI SOYADI</th>
+                <th class="text-center">EMAIL</th>
+                <th class="text-center">PHONE</th>
+                <th class="text-center">TARİH</th>
+                <th class="text-center">DURUM</th>
+                <th class="text-center"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                i++;
+                <tr>
+                    <td>@i</td>
+                    <td>@item.FullName</td>
+                    <td>@(item.Email != null ? item.Email : "Email bilgisi verilmedi")</td>
+                    <td>@(item.Phone)</td>
+                    <td>@(item.History != null ? item.History.Value.ToString("dd MMMM yyyy dddd (HH:mm)") : "Kayıt tarihi verilmedi")</td>
+                    <td>
+                        @if (item.Status == true)
+                        {
+                            <a href="/Comments/Active/@item.Id" data-toggle="tooltip" data-original-title="Aktif">
+                                <div class="label label-table label-success">Aktif</div>
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="/Comments/Passive/@item.Id" data-toggle="tooltip" data-original-title="Pasif">
+                                <div class="label label-table label-danger">Pasif</div>
+                            </a>
+                        }
+                    </td>
+                    <td>
+                        <button id="@item.Id" class="btn btn-primary btn-icon-split" data-toggle="tooltip" data-original-title="Detay">
+                            <span class="icon text-white-50">
+                                <i class="fa fa-file-text"></i>
+                            </span>
+                        </button>
+
+                        <script charset="utf-8" type="text/javascript">
+                            $('#@item.Id').click(function () {
+                                swal({
+                                    title: "Mesaj",
+                                    text: '@Html.Raw(item.Message)',
+                                    confirmButtonText: "Ok",
+                                    closeOnConfirm: false,
+                                    html: true
+                                });
+                            });
+                        </script>
+
+                        <a href="/Comments/Update/@item.Id" class="btn btn-success btn-icon-split" data-toggle="tooltip" data-original-title="Güncelle">
+                            <span class="icon text-white-50">
+                                <i class="fa fa-check"></i>
+                            </span>
+                        </a>
+
+                        <a href="/Comments/Delete/@item.Id" class="btn btn-danger btn-icon-split" data-toggle="tooltip" data-original-title="Sil">
+                            <span class="icon text-white-50">
+                                <i class="fa fa-trash"></i>
+                            </span>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@*<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs-3.3.7/jq-2.2.4/jszip-3.1.3/pdfmake-0.1.27/dt-1.10.15/b-1.3.1/b-html5-1.3.1/b-print-1.3.1/r-2.1.1/rg-1.0.0/datatables.min.css" />*@
+
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs-3.3.7/jq-2.2.4/jszip-3.1.3/pdfmake-0.1.27/dt-1.10.15/b-1.3.1/b-html5-1.3.1/b-print-1.3.1/r-2.1.1/rg-1.0.0/datatables.min.js"></script>
+
+<script>
+    $('#comments').DataTable({
+        language: {
+            info: "_TOTAL_ kayıttan _START_ - _END_ kayıt gösteriliyor.",
+            infoEmpty: "Gösterilecek hiç kayıt yok.",
+            loadingRecords: "Kayıtlar yükleniyor.",
+            zeroRecords: "Tablo boş",
+            search: "Arama: ",
+            infoFiltered: "(toplam _MAX_ kayıttan filtrelenenler)",
+            buttons: {
+                copyTitle: "Tabloya kopyalandı.",
+                copySuccess: "Tabloya %d satır kopyalandı",
+                copy: "Kopyala",
+                print: "Yazdır",
+            },
+
+            paginate: {
+                first: "İlk",
+                previous: "Önceki",
+                next: "Sonraki",
+                last: "Son"
+            },
+        },
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'excel', 'pdf', 'print'
+        ],
+        responsive: true
+    });
+</script>

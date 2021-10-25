@@ -1,0 +1,81 @@
+﻿@model MvcMovieTicketSales.Models.EntityFramework.Member
+
+@{
+    ViewBag.Title = "Info";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-area-content">
+                    <h1>KİŞİSEL BİLGİLER</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="transformers-area" style="margin-bottom: 20px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row portfolio-item">
+                    <div class="col-md-6 col-sm-6" style="padding-right: 50px;">
+                        <div class="single-portfolio">
+                            @using (Html.BeginForm("PersonalInformation", "Member", FormMethod.Post))
+                            {
+                                <div class="">
+                                    <!--transformers-box-->
+                                    <div class="row flexbox-center">
+                                        <h2>Kişisel Bilgiler</h2>
+                                        @Html.TextBoxFor(x => x.Name, new { @placeholder = "Adınız", @style = "margin-top: 20px;" })
+                                        @Html.TextBoxFor(x => x.SurName, new { @placeholder = "Soyadınız", @style = "margin-top: 20px;" })
+                                        @Html.TextBoxFor(x => x.Email, new { @placeholder = "Eposta Adresiniz", @type = "email", @style = "margin-top: 20px;", @disable = "disable" })
+                                        @Html.TextBoxFor(x => x.Phone, new { @placeholder = "Telefon Numaranız", @type = "tel", @style = "margin-top: 20px;" })
+                                        <div class="login-register">
+                                            <button type="submit" style="margin-top: 20px;">Bilgilerimi Güncelle</button>
+                                        </div>
+                                    </div>
+                                    <div align="center" style="margin-top: 20px;">
+                                        <h5>@ViewBag.Error</h5>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6" style="padding-left: 50px;">
+                        <div class="single-portfolio">
+                            @using (Html.BeginForm("PasswordTransactions", "Member", FormMethod.Post))
+                            {
+                                <div class="">
+                                    <!--transformers-box-->
+                                    <div class="row flexbox-center">
+                                        <h2>Şifre İşlemleri</h2>
+                                        <input type="password" placeholder="Eski Şifre" style="margin-top: 20px;" name="OldPassword" id="OldPassword" />
+                                        @Html.PasswordFor(x => x.Password, new { @placeholder = "Yeni Şifre", @style = "margin-top: 20px;" })
+                                        @Html.PasswordFor(x => x.RPassword, new { @placeholder = "Yeni Şifre Tekrar", @style = "margin-top: 20px;" })
+                                        <div class="login-register">
+                                            <button id="password" type="submit" style="margin-top: 20px;">Şifremi Güncelle</button>
+                                        </div>
+                                    </div>
+                                    <div align="center" style="margin-top: 20px;">
+                                        <h5>@ViewBag.Password</h5>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $('#password').click(function () {
+        alert('Parolanız değiştirilmiştir');
+    });
+</script>
+

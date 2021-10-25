@@ -1,0 +1,29 @@
+﻿@model MvcMovieTicketSales.Models.EntityFramework.CelebriteFollow
+
+@{
+    ViewBag.Title = "SocialMediaUpdate";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@using (Html.BeginForm("SocialMediaUpdate", "Actors", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.LabelFor(x => x.Name, "Hesap Adı")
+        @Html.TextBoxFor(x => x.Name, new { @class = "form-control", @placeholder = "Hesap Adı" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.SocialMedia.Id, "Sosyal Medya Adı")
+        @Html.DropDownListFor(x => x.SocialMedia.Id, (IEnumerable<SelectListItem>)ViewBag.SocialMedia, "Sosyal Medya Seçiniz", new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.Url, "Hesap Url")
+        @Html.TextBoxFor(x => x.Url , new { @class = "form-control", @placeholder = "Hesap Url" })
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">Güncelle</button>
+    </div>
+}
+

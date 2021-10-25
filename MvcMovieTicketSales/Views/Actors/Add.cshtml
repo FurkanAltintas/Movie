@@ -1,0 +1,42 @@
+﻿@model MvcMovieTicketSales.Models.EntityFramework.Celebrite
+
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@using (Html.BeginForm("Add", "Actors", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.LabelFor(x => x.FullName, "Adı Soyadı")
+        @Html.TextBoxFor(x => x.FullName, new { @class = "form-control", @placeholder = "Adı Soyadı" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.Age, "Yaşı")
+        @Html.TextBoxFor(x => x.Age, new { @class = "form-control", @placeholder = "Yaşı", @type = "number" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.Birthday, "Doğum Tarihi")
+        @Html.TextBoxFor(x => x.Birthday, new { @class = "form-control", @type = "date" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.Language, "Uyruk")
+        @Html.TextBoxFor(x => x.Language, new { @class = "form-control", @placeholder = "Uyruk" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.Image, "Fotoğraf")
+        @Html.TextBoxFor(x => x.Image, new { @class = "form-control", @type = "file" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.Hobby, "Hobileri")
+        @Html.TextBoxFor(x => x.Hobby, new { @class = "form-control", @placeholder = "Hobileri" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.Overview, "Hakkında")
+        @Html.TextAreaFor(x => x.Overview, 5, 1, new { @class = "form-control", @placeholder = "Hakkında" })
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">Oyuncu Ekle</button>
+    </div>
+}
+

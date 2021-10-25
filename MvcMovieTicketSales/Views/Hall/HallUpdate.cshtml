@@ -1,0 +1,18 @@
+﻿@model MvcMovieTicketSales.Models.EntityFramework.Hall
+
+@{
+    ViewBag.Title = "HallUpdate";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@using (Html.BeginForm("HallUpdate", "Hall", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.LabelFor(x => x.Name, "Salon Adı")
+        @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="fcbtn btn btn-success btn-outline btn-1e">Güncelle</button>
+    </div>
+}

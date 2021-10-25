@@ -1,0 +1,50 @@
+﻿@using MvcMovieTicketSales.Models.EntityFramework
+@model List<WatchList>
+
+@{
+    ViewBag.Title = "WatchList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int i = 0;
+}
+
+<section class="portfolio-area pt-60" style="padding-top: 135px; padding-bottom: 135px;">
+    <div class="container">
+        <p align="center" style="margin-top: 50px;">
+            İzlenilecek Listesinde <a style="color:#ffffff;">@Model.Count()</a> tane film bulunmaktadır
+        </p>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row portfolio-item">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-md-2 col-sm-6">
+                            <div class="single-portfolio">
+                                <div class="single-portfolio-img">
+                                    <img src="@item.Movie.Image" alt="@item.Movie.Name" />
+                                    <a href="@item.Movie.Trailer" class="popup-youtube">
+                                        <i class="icofont icofont-ui-play"></i>
+                                    </a>
+                                </div>
+                                <div class="portfolio-content" align="center">
+                                    <h3><a href="/Movie/Details/@item.Movie.Id">@item.Movie.Name</a></h3>
+
+                                    <div class="review">
+                                        <div class="author-review" style="float: none;">
+                                            <i class="icofont icofont-star"></i>
+                                            <i class="icofont icofont-star"></i>
+                                            <i class="icofont icofont-star"></i>
+                                            <i class="icofont icofont-star"></i>
+                                            <i class="icofont icofont-star"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        i += 190;
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

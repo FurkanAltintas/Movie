@@ -1,0 +1,51 @@
+﻿@model MvcMovieTicketSales.Models.DirectorInfo
+
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="col-sm-12 white-box">
+    <div class="col-sm-9 float-left">
+        <div class="form-group">
+            @Html.LabelFor(x => x.director.FullName, "Yönetmenin Adı Soyadı")
+            @Html.TextBoxFor(x => x.director.FullName, new { @class = "form-control", @disabled = "disabled" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.director.Overview, "Özet")
+            @Html.TextAreaFor(x => x.director.Overview, 5, 1, new { @class = "form-control", @disabled = "disabled" })
+        </div>
+    </div>
+
+    <div class="col-sm-3 float-right">
+        <div class="form-group">
+            <img src="@Model.director.Image" style="width: 400px; height: auto;" />
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+        <div class="form-group">
+            @Html.LabelFor(x => x.movie.Name, "Filmleri")
+            <select multiple="multiple" class="form-control" id="CelebriteUrl" onchange="doNavigate()">
+                @foreach (var item in Model.directorDetail)
+                {
+                    <option value="/Actor/Filmography/@item.MovieId">@item.Movie.Name</option>
+                }
+            </select>
+        </div>
+
+        @using (Html.BeginForm("Detail", "Directors", FormMethod.Post))
+        {
+            <div class="form-group">
+                @Html.LabelFor(x => x.movie.Name, "Film Seçiniz")
+                @Html.DropDownListFor(x => x.movie.Id, (IEnumerable<SelectListItem>)ViewBag.Movies, "Film Seçiniz", new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="fcbtn btn btn-success btn-outline btn-1e">Film Ekle</button>
+                <a href="@Url.Action("Index", "Directors")" class="fcbtn btn btn-warning btn-outline btn-1e">Geri Dön</a>
+            </div>
+        }
+    </div>
+</div>

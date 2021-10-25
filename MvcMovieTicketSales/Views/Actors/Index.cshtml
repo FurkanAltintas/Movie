@@ -1,0 +1,164 @@
+﻿@using MvcMovieTicketSales.Models.EntityFramework
+@model List<Celebrite>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+    int i = 0;
+}
+
+<!--<div class="card card-solid gorsel">
+    <div class="card-body pb-0">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
+                    <div class="card bg-light d-flex flex-fill">
+                        <div class="card-header text-muted border-bottom-0">
+                            Oyuncu
+                        </div>
+                        <div class="card-body pt-0">
+                            <div class="row">
+                                <div class="col-7">
+                                    <h2 class="lead"><b>@item.FullName</b></h2>
+                                    <br />
+                                    <p class="text-muted text-sm"><b>Hobileri: </b> @(item.Hobby!=null?item.Hobby:"Eklenmedi") </p>
+                                    <p class="text-muted text-sm"><b>Uyruk</b> @(item.Language!=null?item.Language:"Eklenmedi")</p>
+                                    <p class="text-muted text-sm"><b>Cinsiyet</b> @(item.Gender==true?"Erkek":"Kadın")</p>
+                                    <p class="text-muted text-sm"><b>Doğum Tarihi</b> @(item.Birthday!=null?item.Birthday.Value.ToString("dd.MM.yyyy"):"Eklenmedi")</p>
+                                </div>
+                                <div class="col-5 text-center">
+                                    <img src="@item.Image" alt="user-avatar" class="img-circle img-fluid">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="text-right">
+                                <a href="#" class="btn btn-sm bg-teal">
+                                    <i class="fas fa-comments"></i>
+                                </a>
+                                <a href="#" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-user"></i> View Profile
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                </div>
+            }
+        </div>
+    </div>-->
+<!-- /.card-body -->
+<!-- /.card-footer -->
+<!--</div>-->
+
+<div class="liste">
+    <table id="actors" class="table table-bordered table-hover text-center">
+        <thead>
+            <tr>
+                <th class="text-center">#</th>
+                <th class="text-center">ADI SOYADI</th>
+                <th class="text-center">PROFİL</th>
+                <th class="text-center">CİNSİYETİ</th>
+                <th class="text-center">YAŞI</th>
+                <th class="text-center">DOĞUM TARİHİ</th>
+                <th class="text-center">UYRUK</th>
+                <th class="text-center"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                i++;
+                <tr>
+                    <td>@i</td>
+                    <td>@item.FullName</td>
+                    <td><a href="@item.Image" target="_blank"><img src="@item.Image" style="width: 50px; height:auto;" /></a></td>
+                    <td>@(item.Gender==true?"Erkek":"Kadın")</td>
+                    <td>
+                        @if (item.Birthday == null)
+                        {
+                            <p>Eklenmedi</p>
+                        }
+                        else
+                        {
+                            @(DateTime.Now.Year - item.Birthday.Value.Year)
+                        }
+                    </td>
+                    <td>@(item.Birthday!=null?item.Birthday.Value.ToString("dd.MM.yyyy"):"Eklenmedi")</td>
+                    <td>@(item.Language!=null?item.Language:"Eklenmedi")</td>
+                    <td>
+                        <a href="/Actors/SocialMedia/@item.Id" class="btn btn-primary btn-icon-split" title="Sosyal Medya">
+                            <span class="icon text-white-50">
+                                <i class="fa fa-share"></i>
+                            </span>
+                        </a>
+
+                        <a href="/Actors/Movies/@item.Id" class="btn btn-info btn-icon-split" title="Filmler">
+                            <span class="icon text-white-50">
+                                <i class="fa fa-video-camera"></i>
+                            </span>
+                        </a>
+
+                        <a href="/Actors/Detail/@item.Id" class="btn btn-warning btn-icon-split" data-toggle="tooltip" data-original-title="Detay">
+                            <span class="icon text-white-50">
+                                <i class="fa fa-question"></i>
+                            </span>
+                        </a>
+
+                        <a href="/Actors/Update/@item.Id" class="btn btn-success btn-icon-split" data-toggle="tooltip" data-original-title="Güncelle">
+                            <span class="icon text-white-50">
+                                <i class="fa fa-check"></i>
+                            </span>
+                        </a>
+
+                        <a href="/Actors/Delete/@item.Id" class="btn btn-danger btn-icon-split" data-toggle="tooltip" data-original-title="Sil">
+                            <span class="icon text-white-50">
+                                <i class="fa fa-trash"></i>
+                            </span>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<a href="@Url.Action("Add","Actors")" class="fcbtn btn btn-success btn-outline btn-1e">Oyuncu Ekle</a>
+
+
+@*<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs-3.3.7/jq-2.2.4/jszip-3.1.3/pdfmake-0.1.27/dt-1.10.15/b-1.3.1/b-html5-1.3.1/b-print-1.3.1/r-2.1.1/rg-1.0.0/datatables.min.css" />*@
+
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs-3.3.7/jq-2.2.4/jszip-3.1.3/pdfmake-0.1.27/dt-1.10.15/b-1.3.1/b-html5-1.3.1/b-print-1.3.1/r-2.1.1/rg-1.0.0/datatables.min.js"></script>
+
+<script>
+    $('#actors').DataTable({
+        language: {
+            info: "_TOTAL_ kayıttan _START_ - _END_ kayıt gösteriliyor.",
+            infoEmpty: "Gösterilecek hiç kayıt yok.",
+            loadingRecords: "Kayıtlar yükleniyor.",
+            zeroRecords: "Tablo boş",
+            search: "Arama: ",
+            infoFiltered: "(toplam _MAX_ kayıttan filtrelenenler)",
+            buttons: {
+                copyTitle: "Tabloya kopyalandı.",
+                copySuccess: "Tabloya %d satır kopyalandı",
+                copy: "Kopyala",
+                print: "Yazdır",
+            },
+
+            paginate: {
+                first: "İlk",
+                previous: "Önceki",
+                next: "Sonraki",
+                last: "Son"
+            },
+        },
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'excel', 'pdf', 'print'
+        ],
+        responsive: true
+    });
+</script>

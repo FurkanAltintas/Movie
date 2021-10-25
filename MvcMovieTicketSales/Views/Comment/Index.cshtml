@@ -1,0 +1,42 @@
+﻿@model MvcMovieTicketSales.Models.EntityFramework.Comment
+
+<div class="details-reply">
+    <h2>Cevap bırakın</h2>
+    @using (Html.BeginForm("Index", "Comment", FormMethod.Post))
+    {
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="select-container">
+                    @Html.TextBoxFor(x => x.FullName, new { @placeholder = "Ad Soyad" })
+                    <i class="icofont icofont-ui-user"></i>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="select-container">
+                    @Html.TextBoxFor(x => x.Email, new { @placeholder = "Email", @type = "email" })
+                    <i class="icofont icofont-envelope"></i>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="select-container">
+                    @Html.TextBoxFor(x => x.Phone, new { @placeholder = "Telefon", @type = "tel" })
+                    <i class="icofont icofont-phone"></i>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="textarea-container">
+                    @Html.TextAreaFor(x => x.Message, new { @placeholder = "Buraya yazın mesajı" })
+                    <button type="submit"><i class="icofont icofont-send-mail"></i></button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+@if (TempData["Message"] != null)
+{
+    <p>Mesajınız gönderilmiştir. Onaylandığı zaman yayınlanacaktır.</p>
+}
+<div class="details-comment">
+    <a class="theme-btn theme-btn2" href="#">Yorum Gönder</a>
+    <p> </p>
+</div>

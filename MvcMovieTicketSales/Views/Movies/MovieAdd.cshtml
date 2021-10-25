@@ -1,0 +1,57 @@
+﻿@model MvcMovieTicketSales.Models.MovieFirstType
+
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="alert alert-danger alert-dismissable">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <b>Yönetmen</b> listede yoksa seçim yapmayınız !!!
+    <a href="@Url.Action("DirectorAdd","Director")" style="color: white;"><b>Yönetmen</b></a> ekleme panelinden işleminizi halledebilirsiniz.
+</div>
+
+@using (Html.BeginForm("MovieAdd", "Movies", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="form-group">
+        @Html.LabelFor(x => x.movie.Name, "Filmin Adı")
+        @Html.TextBoxFor(x => x.movie.Name, new { @class = "form-control", @placeholder = "Filmin Adı" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.movie.Time, "Filmin Süresi")
+        @Html.TextBoxFor(x => x.movie.Time, new { @class = "form-control", @placeholder = "Filmin Süresi" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.movie.Release, "Filmin Vizyon Tarihi")
+        @Html.TextBoxFor(x => x.movie.Release, new { @class = "form-control", @type = "date" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.movie.Trailer, "Filmin Fragmanı")
+        @Html.TextBoxFor(x => x.movie.Trailer, new { @class = "form-control", @placeholder = "Filmin Fragmanı" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.movie.Image, "Filmin Görseli")
+        @Html.TextBoxFor(x => x.movie.Image, new { @class = "form-control", @type = "file" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.movie.Overview, "Filmin Özeti")
+        @Html.TextAreaFor(x => x.movie.Overview, 5, 1, new { @class = "form-control", @placeholder = "Filmin Özeti" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.movieCategory.Name, "Filmin Kategorisi")
+        @Html.DropDownListFor(x => x.movieCategory.Name, (IEnumerable<SelectListItem>)ViewBag.movieCategory, "Kategori Seçiniz", new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.movie.Slider, "Slider ?")
+        @Html.DropDownListFor(x => x.movie.Slider, new List<SelectListItem>
+        { new SelectListItem{Text="Evet", Value="True"},
+        new SelectListItem{Text="Hayır", Value="False"}}, "Slider Olsun Mu ?", new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.director.FullName, "Yönetmen")
+        @Html.DropDownListFor(x => x.director.Id, (IEnumerable<SelectListItem>)ViewBag.Director, "Yönetmen Seçiniz", new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">Film Ekle</button>
+    </div>
+}

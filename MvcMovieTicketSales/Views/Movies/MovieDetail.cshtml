@@ -1,0 +1,158 @@
+﻿@model MvcMovieTicketSales.Models.MovieFirstType
+
+@{
+    ViewBag.Title = "Movie Detail";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="col-sm-12 white-box">
+    <div class="col-sm-9 float-left">
+        <div class="form-group">
+            @Html.LabelFor(x => x.movie.Name, "Filmin Adı")
+            @Html.TextBoxFor(x => x.movie.Name, new { @class = "form-control", @disabled = "disabled" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.movie.Time, "Filmin Süresi")
+            @Html.TextBoxFor(x => x.movie.Time, new { @class = "form-control", @disabled = "disabled" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.movie.Release, "Filmin Vizyon Tarihi")
+            @Html.TextBoxFor(x => x.movie.Release, "{0:dd.MM.yyyy}", new { @class = "form-control", @disabled = "disabled" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.movie.Trailer, "Filmin Fragmanı")
+            @Html.TextBoxFor(x => x.movie.Trailer, new { @class = "form-control", @disabled = "disabled" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.movie.Overview, "Filmin Özeti")
+            @Html.TextAreaFor(x => x.movie.Overview, 5, 1, new { @class = "form-control", @disabled = "disabled" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.movieType.MovieCategory.Name, "Filmin Kategorisi")
+            @Html.TextBoxFor(x => x.movieType.MovieCategory.Name, new { @class = "form-control", @disabled = "disabled" })
+        </div>
+    </div>
+    
+    <div class="col-sm-3 float-right">
+        <div class="form-group">
+            <img src="@Model.movie.Image" style="width: 400px; height: auto;" />
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+        <div class="form-group">
+            @Html.LabelFor(x => x.movie.Slider, "Slider ?")
+            @if (Model.movie.Slider == true)
+            {
+                @Html.TextBoxFor(x => x.movie.Slider, "Evet", new { @class = "form-control", @disabled = "disabled" })
+            }
+            else
+            {
+                @Html.TextBoxFor(x => x.movie.Slider, "Hayır", new { @class = "form-control", @disabled = "disabled" })
+            }
+        </div>
+
+        @*@Html.DropDownListFor(x => x.movie.Slider, new List<SelectListItem>
+            { new SelectListItem{Text="Evet", Value="True"},
+            new SelectListItem{Text="Hayır", Value="False"}}, new { @class = "form-control", @disabled = "disabled" })*@
+
+        @*@Html.LabelFor(x => x.movie.Name, "Oyuncu Kadrosu")
+
+            @if (Model.celebriteDetail.Count() != 0)
+            {
+                foreach (var item in Model.celebriteDetail)
+                {
+                    <div class="form-group">
+                        @Html.TextBoxFor(x => item.Celebrite.FullName, new { @class = "form-control", @disabled = "disabled" })
+                    </div>
+                }
+            }*@
+
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.celebrite.FullName, "Oyuncu Kadrosu")
+            <select multiple="multiple" class="form-control" id="CelebriteUrl" onchange="doNavigate()">
+                @foreach (var item in Model.celebriteDetail)
+                {
+                    <option value="/Actor/Filmography/@item.Celebrite.Id">@item.Celebrite.FullName</option>
+                }
+            </select>
+        </div>
+
+        @using (Html.BeginForm("MovieDetail", "Movies", FormMethod.Post))
+        {
+    <div class="form-group">
+        @Html.LabelFor(x => x.celebrite.FullName, "Oyuncu Seçiniz")
+        @Html.DropDownListFor(x => x.celebrite.Id, (IEnumerable<SelectListItem>)ViewBag.Celebrite, "Oyuncu Seçiniz", new { @class = "form-control" })
+    </div>
+
+            <div class="form-group">
+                <button type="submit" class="fcbtn btn btn-success btn-outline btn-1e">Oyuncu Ekle</button>
+                <a href="@Url.Action("Index", "Movies")" class="fcbtn btn btn-warning btn-outline btn-1e">Geri Dön</a>
+            </div>
+        }
+
+    </div>
+
+    @*<table class="table table-hover text-center col-sm-12">
+            <thead>
+                <tr>
+                    <th class="text-center">#</th>
+                    <th class="text-center">AD SOYAD</th>
+                    <th class="text-center">PROFİL</th>
+                    <th class="text-center">CİNSİYET</th>
+                    <th class="text-center">YAŞI</th>
+                    <th class="text-center">DOĞUM TARİHİ</th>
+                    <th class="text-center">UYRUK</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.celebriteDetail)
+                {
+                    i++;
+                <tr>
+                    <td>@i</td>
+                    <td>@item.Celebrite.FullName</td>
+                    <td><a href="@item.Celebrite.Image" target="_blank"><img src="@item.Celebrite.Image" style="width: 50px; height:auto;" /></a></td>
+                    <td>@(item.Celebrite.Gender==true?"Erkek":"Kadın")</td>
+                    <td>Bilinmiyor</td>
+                    <td>@(item.Celebrite.Birthday!=null?item.Celebrite.Birthday.Value.ToString("dd.MM.yyyy"):"Eklenmedi")</td>
+                    <td>@(item.Celebrite.Language!=null?item.Celebrite.Language:"Eklenmedi")</td>
+                    <td>
+                        <a href="/Actors/SocialMedia/@item.Id" class="btn btn-primary btn-icon-split" data-toggle="tooltip" data-original-title="Sosyal Medya">
+                            <span class="icon text-white-50">
+                                <i class="fa fa-share"></i>
+                            </span>
+                        </a>
+
+                        <a href="/Actors/Detail/@item.Id" class="btn btn-warning btn-icon-split" data-toggle="tooltip" data-original-title="Detay">
+                            <span class="icon text-white-50">
+                                <i class="fa fa-question"></i>
+                            </span>
+                        </a>
+
+                        <a href="/Actors/Update/@item.Id" class="btn btn-success btn-icon-split" data-toggle="tooltip" data-original-title="Güncelle">
+                            <span class="icon text-white-50">
+                                <i class="fa fa-check"></i>
+                            </span>
+                        </a>
+
+                        <a href="/Actors/Delete/@item.Id" class="btn btn-danger btn-icon-split" data-toggle="tooltip" data-original-title="Sil">
+                            <span class="icon text-white-50">
+                                <i class="fa fa-trash"></i>
+                            </span>
+                        </a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>*@
+
+</div>
+

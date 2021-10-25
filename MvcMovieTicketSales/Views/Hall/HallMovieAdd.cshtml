@@ -1,0 +1,47 @@
+﻿@model MvcMovieTicketSales.Models.HallSeat
+
+@{
+    ViewBag.Title = "Seans Ekleme";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="alert alert-danger alert-dismissable">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <b>Önemli Bilgi: </b> Seanslar arası yarım saat olmalıdır. (Film araları 5er dakikadır)
+</div>
+
+@using (Html.BeginForm("HallMovieAdd", "Hall", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.LabelFor(x => x.hall.Name, "Salon Adı")
+        @Html.DropDownListFor(x => x.hall.Id, (IEnumerable<SelectListItem>)ViewBag.Hall, "Salon Seçiniz", new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.movie.Name, "Film Adı")
+        @Html.DropDownListFor(x => x.movie.Id, (IEnumerable<SelectListItem>)ViewBag.Movie, "Film Seçiniz", new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.movieFormat.Name, "Film Formatı")
+        @Html.DropDownListFor(x => x.movieFormat.Id, (IEnumerable<SelectListItem>)ViewBag.MovieFormat, "Film Formatı Seçiniz", new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.hallDetail.DateTime, "Seans")
+        @Html.TextBoxFor(x => x.hallDetail.DateTime, new { @class = "form-control", @type = "datetime-local" })
+    </div>
+
+    if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <b>@ViewBag.Error</b>
+        </div>
+    }
+
+    <div class="form-group">
+        <button type="submit" class="fcbtn btn btn-success btn-outline btn-1e">Salona Film Ekle</button>
+    </div>
+}
+

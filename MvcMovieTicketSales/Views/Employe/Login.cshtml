@@ -1,0 +1,64 @@
+﻿@model MvcMovieTicketSales.Models.EntityFramework.Employee
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LayoutAccount.cshtml";
+}
+
+@using (Html.BeginForm("Login", "Employe", FormMethod.Post, new { @class = "form-horizontal form-material" }))
+{
+    <h3 class="box-title m-b-20">Giriş Yap</h3>
+    <div class="form-group ">
+        <div class="col-xs-12">
+            @Html.TextBoxFor(x => x.Email, new { @class = "form-control", @placeholder = "Email Adresinizi Giriniz" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-12">
+            @Html.PasswordFor(x => x.Password, new { @class = "form-control", @placeholder = "Parolanızı Giriniz" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-12">
+            <div class="checkbox checkbox-primary pull-left p-t-0">
+                <input id="checkbox-signup" type="checkbox">
+                <label for="checkbox-signup"> Beni hatırla </label>
+            </div>
+            <a href="javascript:void(0)" id="to-recover" class="text-dark pull-right"><i class="fa fa-lock m-r-5"></i> Şifremi unuttum?</a>
+        </div>
+    </div>
+    <div class="form-group">
+        @ViewBag.Error
+    </div>
+    <div class="form-group text-center m-t-20">
+        <div class="col-xs-12">
+            <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Giriş Yap</button>
+        </div>
+    </div>
+    <div class="form-group m-b-0">
+        <div class="col-sm-12 text-center">
+            <p>Hesabınız yok mu? <a href="register.html" class="text-primary m-l-5"><b>Üye Ol</b></a></p>
+        </div>
+    </div>
+}
+
+@using (Html.BeginForm("PasswordRecovery", "Employe", FormMethod.Post, new { @class = "form-horizontal", @id="recoverform" }))
+{
+    <div class="form-group ">
+        <div class="col-xs-12">
+            <h3>Şifre Kurtarma</h3>
+            <p class="text-muted">E-postanızı girin, talimatlar size gönderilecektir! </p>
+        </div>
+    </div>
+    <div class="form-group ">
+        <div class="col-xs-12">
+            @Html.TextBoxFor(x => x.Email, new { @class = "form-control", @placeholder = "Email Adresinizi Giriniz" })
+        </div>
+    </div>
+    <div class="form-group text-center m-t-20">
+        <div class="col-xs-12">
+            <button class="btn btn-primary btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Sıfırla</button>
+            @ViewBag.Error
+        </div>
+    </div>
+}

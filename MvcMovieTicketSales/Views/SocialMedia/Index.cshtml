@@ -1,0 +1,126 @@
+﻿@model MvcMovieTicketSales.Models.Social
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+    int i = 0;
+}
+
+<div class="white-box">
+    <table id="socialMedia" class="table table-bordered table-hover text-center">
+        <thead>
+            <tr>
+                <th class="text-center">#</th>
+                <th class="text-center">ADI</th>
+                <th class="text-center">ICON</th>
+                <th class="text-center">DURUMU</th>
+                <th class="text-center"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.socialMediaList)
+            {
+                i++;
+                <tr>
+                    <td>@i</td>
+                    <td>@item.Name</td>
+                    <td><i class="fa fa-@item.Name"></i></td>
+                    <td>
+                        @if (item.Status == true)
+                        {
+                            <a href="/SocialMedia/Passive/@item.Id" data-toggle="tooltip" data-original-title="Aktif">
+                                <div class="label label-table label-success">Aktif</div>
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="/SocialMedia/Active/@item.Id" data-toggle="tooltip" data-original-title="Pasif">
+                                <div class="label label-table label-danger">Pasif</div>
+                            </a>
+                        }
+                    </td>
+                    <td style="width: 150px;">
+                        <a href="/SocialMedia/Detail/@item.Id" class="btn btn-warning btn-icon-split" data-toggle="tooltip" data-original-title="Detay">
+                            <span class="icon text-white-50">
+                                <i class="fa fa-question"></i>
+                            </span>
+                        </a>
+
+                        <a href="/SocialMedia/Update/@item.Id" class="btn btn-success btn-icon-split" data-toggle="tooltip" data-original-title="Güncelle">
+                            <span class="icon text-white-50">
+                                <i class="fa fa-check"></i>
+                            </span>
+                        </a>
+
+                        <a href="/SocialMedia/Delete/@item.Id" class="btn btn-danger btn-icon-split" data-toggle="tooltip" data-original-title="Sil">
+                            <span class="icon text-white-50">
+                                <i class="fa fa-trash"></i>
+                            </span>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<button type="button" data-toggle="modal" data-target="#socialAdd" class="fcbtn btn btn-success btn-outline btn-1e">Sosyal Medya Ekle</button>
+
+@using (Html.BeginForm("Add", "SocialMedia", FormMethod.Post))
+{
+    <div class="modal fade" id="socialAdd" tabindex="-1" role="dialog" aria-labelledby="socialAddTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle" style="float: left;">Sosyal Medya Hesabı Ekle</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @Html.TextBoxFor(x => x.socialMedia.Name, new { @class = "form-control", @placeholder = "Sosyal Medya Hesabı Adı" })
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@*<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs-3.3.7/jq-2.2.4/jszip-3.1.3/pdfmake-0.1.27/dt-1.10.15/b-1.3.1/b-html5-1.3.1/b-print-1.3.1/r-2.1.1/rg-1.0.0/datatables.min.css" />*@
+
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs-3.3.7/jq-2.2.4/jszip-3.1.3/pdfmake-0.1.27/dt-1.10.15/b-1.3.1/b-html5-1.3.1/b-print-1.3.1/r-2.1.1/rg-1.0.0/datatables.min.js"></script>
+
+<script>
+    $('#socialMedia').DataTable({
+        language: {
+            info: "_TOTAL_ kayıttan _START_ - _END_ kayıt gösteriliyor.",
+            infoEmpty: "Gösterilecek hiç kayıt yok.",
+            loadingRecords: "Kayıtlar yükleniyor.",
+            zeroRecords: "Tablo boş",
+            search: "Arama: ",
+            infoFiltered: "(toplam _MAX_ kayıttan filtrelenenler)",
+            buttons: {
+                copyTitle: "Tabloya kopyalandı.",
+                copySuccess: "Tabloya %d satır kopyalandı",
+                copy: "Kopyala",
+                print: "Yazdır",
+            },
+
+            paginate: {
+                first: "İlk",
+                previous: "Önceki",
+                next: "Sonraki",
+                last: "Son"
+            },
+        },
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'excel', 'pdf', 'print'
+        ],
+        responsive: true
+    });
+</script>

@@ -1,0 +1,53 @@
+﻿@model MvcMovieTicketSales.Models.CelebriteInfo
+
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="col-sm-12 white-box">
+    <div class="col-sm-8 float-left">
+        <div class="form-group">
+            @Html.LabelFor(x => x.celebrite.FullName, "Oyuncunun Adı Soyadı")
+            @Html.TextBoxFor(x => x.celebrite.FullName, new { @class = "form-control", @disabled = "disabled" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.celebrite.Gender, "Cinsiyet")
+            @if (Model.celebrite.Gender == true)
+            {
+                @Html.TextBoxFor(x => x.celebrite.Gender, "Erkek", new { @class = "form-control", @disabled = "disabled" })
+            }
+            else
+            {
+                @Html.TextBoxFor(x => x.celebrite.Gender, "Kadın", new { @class = "form-control", @disabled = "disabled" })
+            }
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.celebrite.Age, "Yaşı")
+            @Html.TextBoxFor(x => x.celebrite.Age, new { @class = "form-control", @disabled = "disabled" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.celebrite.Birthday, "Doğum Tarihi")
+            @Html.TextBoxFor(x => x.celebrite.Birthday, "{0:dd.MM.yyyy}", new { @class = "form-control", @disabled = "disabled" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.celebrite.Hobby, "Hobileri")
+            @Html.TextBoxFor(x => x.celebrite.Hobby, new { @class = "form-control", @disabled = "disabled" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.celebrite.Overview, "Özet")
+            @Html.TextAreaFor(x => x.celebrite.Overview, 5, 1, new { @class = "form-control", @disabled = "disabled" })
+        </div>
+    </div>
+
+    <div class="col-sm-4 float-right">
+        <div class="form-group">
+            <img src="@Model.celebrite.Image" style="width: 500px; height: auto;" />
+        </div>
+    </div>
+</div>

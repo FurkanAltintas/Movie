@@ -1,0 +1,93 @@
+﻿@model MvcMovieTicketSales.Models.TicketSeat
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="buy-ticket1">
+    <div class="container">
+        <div class="buy-ticket-area">
+            <a href="#"><i class="icofont icofont-close"></i></a>
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="buy-ticket-box">
+                        <h4>Bilet Satın Al</h4>
+                        <h5>Koltuk</h5>
+                        <h6>Ekran</h6>
+                        <div class="ticket-box-table">
+                            <table class="ticket-table-seat">
+                                @foreach (var item in Model.Seat.Take(5))
+                                {
+                                    for (int i = 0; i < Model.Seat.Count(); i++)
+                                    {
+                                        for (int j = 0; j < Model.Seat.Count(); j++)
+                                        {
+                                            <tr>
+                                                <td>@item.Code</td>
+                                            </tr>
+                                        }
+                                    }
+                                }
+                            </table>
+                            <table>
+                                <tr>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="ticket-box-available">
+                            <input type="checkbox" />
+                            <span>Mevcut</span>
+                            <input type="checkbox" checked />
+                            <span>Mevcut Değil</span>
+                            <input type="checkbox" />
+                            <span>Seçili</span>
+                        </div>
+                        <a href="#" class="theme-btn">Öncesi</a>
+                        <a href="#" class="theme-btn">Sonrası</a>
+                    </div>
+                </div>
+                <div class="col-lg-3 offset-lg-1">
+                    <div class="buy-ticket-box mtr-30">
+                        <h4>Film Bilgi</h4>
+                        <ul>
+                            <li>
+                                <p>Location</p>
+                                <span>İstanbul</span>
+                            </li>
+                            <li>
+                                <p>TIME</p>
+                                <span>@Model.HallDetail.DateTime.Value.ToString("dd.MM.yyyy HH:mm")</span>
+                            </li>
+                            <li>
+                                <p>Movie name</p>
+                                <span>@Model.HallDetail.Movie.Name</span>
+                            </li>
+                            <li>
+                                <p>Ticket number</p>
+                                <span>2 Adults, 2 Children, 2 Seniors</span>
+                            </li>
+                            <li>
+                                <p>Price</p>
+                                <span>89$</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

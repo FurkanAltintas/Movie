@@ -1,0 +1,46 @@
+﻿@model MvcMovieTicketSales.Models.EntityFramework.Member
+
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-area-content">
+                    <h1>KAYIT OL</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="transformers-area" style="margin-bottom: 20px;">
+    <div class="container">
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+        {
+        <div class="transformers-box">
+            <div class="row flexbox-center">
+                <h2>Hesap Oluşturun</h2>
+                @Html.TextBoxFor(x => x.Name, new { @placeholder = "Adınız", @style = "margin-top: 20px;" })
+                @Html.TextBoxFor(x => x.SurName, new { @placeholder = "Soyadınız", @style = "margin-top: 20px;" })
+                @Html.TextBoxFor(x => x.Email, new { @placeholder = "Eposta Adresiniz", @type = "email", @style = "margin-top: 20px;" })
+                @Html.TextBoxFor(x => x.Phone, new { @placeholder = "Telefon Numaranız", @type = "tel", @style = "margin-top: 20px;" })
+                @Html.PasswordFor(x => x.Password, new { @placeholder = "Şifre", @style = "margin-top: 20px;" })
+                @Html.PasswordFor(x => x.RPassword, new { @placeholder = "Şifre Tekrar", @style = "margin-top: 20px;" })
+                <div class="login-register">
+                    <button type="submit" style="margin-top: 20px;">Üye Ol</button>
+                </div>
+            </div>
+            <div align="center" style="margin-top: 20px;">
+                <h5>@ViewBag.Error</h5>
+            </div>
+            <div align="center" style="margin-top: 20px;">
+                <span>Zaten üye misiniz?<a href="@Url.Action("Login","Account")"> Giriş Yapın</a></span>
+            </div>
+        </div>
+        }
+    </div>
+</section>
+

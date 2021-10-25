@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!-- 404 Error Text -->
+<div class="text-center">
+    <div class="error mx-auto" data-text="404">404</div>
+    <p class="lead text-gray-800 mb-5">Sayfa Bulunamadı</p>
+    <p class="text-gray-500 mb-0">Bir hata almış gibi görünüyorsun</p>
+    <a href="@Url.Action("Index","Dashboard")">&larr; Panele Geri Dön</a>
+</div>

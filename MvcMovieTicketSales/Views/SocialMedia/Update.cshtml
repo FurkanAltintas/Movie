@@ -1,0 +1,19 @@
+﻿@model MvcMovieTicketSales.Models.EntityFramework.SocialMedia
+
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@using (Html.BeginForm("Update", "SocialMedia", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.LabelFor(x => x.Name, "Sosyal Medya Hesap Adı")
+        @Html.TextBoxFor(x => x.Name, new { @class = "form-control", @placeholder = "Sosyal Medya Hesap Adı" })
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="fcbtn btn btn-success btn-outline btn-1e">Update</button>
+    </div>
+}
+

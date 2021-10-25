@@ -1,0 +1,58 @@
+﻿@model MvcMovieTicketSales.Models.PersonnelTitle
+
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@using (Html.BeginForm("Add", "Employees", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="form-group">
+        @Html.LabelFor(x => x.employee.Name, "Adı")
+        @Html.TextBoxFor(x => x.employee.Name, new { @class = "form-control", @placeholder = "Adı" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.employee.Surname, "Soyadı")
+        @Html.TextBoxFor(x => x.employee.Surname, new { @class = "form-control", @placeholder = "Soyadı" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.employee.Email, "Email")
+        @Html.TextBoxFor(x => x.employee.Email, new { @class = "form-control", @placeholder = "Email", @type = "email" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.employee.Phone, "Telefon")
+        @Html.TextBoxFor(x => x.employee.Email, new { @class = "form-control", @placeholder = "Telefon", @type = "tel" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.employee.Address, "Adres")
+        @Html.TextAreaFor(x => x.employee.Address, 10, 5, new { @class = "form-control", @placeholder = "Adres" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.employee.Information, "Hakkımda")
+        @Html.TextAreaFor(x => x.employee.Information, 10, 5, new { @class = "form-control", @placeholder = "Hakkımda" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.employee.Password, "Parola")
+        @Html.PasswordFor(x => x.employee.Password, new { @class = "form-control", @placeholder = "Parola" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.employee.RPassword, "Parola Tekrar")
+        @Html.PasswordFor(x => x.employee.RPassword, new { @class = "form-control", @placeholder = "Parola Tekrar" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.employee.Profile, "Profil")
+        @Html.TextBoxFor(x => x.employee.Profile, new { @class = "form-control", @type = "file" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.authority.Id, "Ünvan")
+        @Html.DropDownListFor(x => x.authority.Id, (IEnumerable<SelectListItem>)ViewBag.Authority, "Ünvan Seçiniz", new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @ViewBag.Error
+    </div>
+    <div class="form-group">
+        <button type="submit" class="fcbtn btn btn-success btn-outline btn-1e">Personel Ekle</button>
+    </div>
+}
+
+

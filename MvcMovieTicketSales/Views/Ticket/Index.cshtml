@@ -1,0 +1,221 @@
+﻿@model MvcMovieTicketSales.Models.MovieTicket
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int i = 0;
+    int y = 0;
+    int o = 0;
+}
+
+<section class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-area-content">
+                    <h1>@Model.movie.Name</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section><!-- breadcrumb area end -->
+<!-- transformers area start -->
+<section class="transformers-area">
+    <div class="container">
+        <div class="transformers-box">
+            <div class="row flexbox-center">
+                <div class="col-lg-5 text-lg-left text-center">
+                    <div class="transformers-content">
+                        <img src="@Model.movie.Image" alt="@Model.movie.Name" />
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="transformers-content">
+                        <h2>@Model.movie.Name</h2>
+                        <p>
+                            @foreach (var item in Model.movieType)
+                            {
+                                @item.MovieCategory.Name
+                            }
+                        </p>
+                        <ul>
+                            <li>
+                                <div class="transformers-left">
+                                    Tür:
+                                </div>
+                                <div class="transformers-right">
+                                    @foreach (var item in Model.movieType.Take(1))
+                                    {
+                                        <a href="/Movie/Category/@item.Id">
+                                            @item.MovieCategory.Name
+                                        </a>
+                                    }
+                                </div>
+                            </li>
+                            <li>
+                                <div class="transformers-left">
+                                    Yönetmen:
+                                </div>
+                                <div class="transformers-right">
+                                    @foreach (var item in Model.directorDetail)
+                                    {
+                                        if (Model.directorDetail.Count() == 1)
+                                        {
+                                            <a href="/Director/Details/@item.Id">@item.Director.FullName</a>
+                                        }
+                                        else
+                                        {
+                                            i++;
+                                            if (Model.directorDetail.Count() != i)
+                                            {
+                                                <a href="/Director/Details/@item.Id">@item.Director.FullName, </a>
+                                            }
+                                            else
+                                            {
+                                                <a href="/Director/Details/@item.Id">@item.Director.FullName</a>
+                                            }
+                                        }
+                                    }
+                                </div>
+                            </li>
+                            <li>
+                                <div class="transformers-left">
+                                    Oyuncular:
+                                </div>
+                                <div class="transformers-right">
+                                    @foreach (var item in Model.celebriteDetail)
+                                    {
+                                        if (Model.celebriteDetail.Count() == 1)
+                                        {
+                                            <a href="/Celebritie/Details/@item.Celebrite.Id">@item.Celebrite.FullName</a>
+                                        }
+                                        else
+                                        {
+                                            y++;
+                                            if (Model.celebriteDetail.Count() != y)
+                                            {
+                                                <a href="/Celebritie/Details/@item.Celebrite.Id">@item.Celebrite.FullName, </a>
+                                            }
+                                            else
+                                            {
+                                                <a href="/Celebritie/Details/@item.Celebrite.Id">@item.Celebrite.FullName</a>
+                                            }
+                                        }
+                                    }
+                                </div>
+                            </li>
+                            <li>
+                                <div class="transformers-left">
+                                    Süre:
+                                </div>
+                                <div class="transformers-right">
+                                    @if (Model.movie.Time == null)
+                                    {
+                                        <a>Belirtilmedi</a>
+                                    }
+                                    else
+                                    {
+                                        @Model.movie.Time
+                                    }
+                                </div>
+                            </li>
+                            <li>
+                                <div class="transformers-left">
+                                    Vizyon Tarihi:
+                                </div>
+                                <div class="transformers-right">
+                                    @Model.movie.Release.Value.ToString("dd.MM.yyyy")
+                                </div>
+                            </li>
+                            <li>
+                                <div class="transformers-left">
+                                    Dil:
+                                </div>
+                                <div class="transformers-right">
+                                    @Model.movie.Language
+                                </div>
+                            </li>
+                            <li>
+                                <iframe width="560" height="270" src="@MvcMovieTicketSales.Utils.YoutubeEmbed.Embed(Model.movie.Trailer)" title="@Model.movie.Name" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </li>
+                            <li>
+                                <div class="transformers-left">
+                                    Paylaş:
+                                </div>
+                                <div class="transformers-right">
+                                    <a href="https://www.facebook.com/sharer/sharer.php?url=@Url.Encode(Request.Url.ToString())&t=@Url.Encode(Model.movie.Name)&text=@Url.Encode(Model.movie.Trailer)" target="_blank"><i class="icofont icofont-social-facebook"></i></a>
+                                    <a href="https://twitter.com/intent/tweet?url=@Url.Encode(Request.Url.ToString())&text=@Url.Encode(Model.movie.Name)&text=@Url.Encode(Model.movie.Trailer)" target="_blank"><i class="icofont icofont-social-twitter"></i></a>
+                                    <a href="https://plus.google.com/share?url=@Url.Encode(Request.Url.ToString())" target="_blank"><i class="icofont icofont-social-google-plus"></i></a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section><!-- transformers area end -->
+<!-- details area start -->
+<section class="details-area" style="margin-top: 20px;">
+    <div class="container">
+        <div class="transformers-box">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row flexbox-center">
+                        <div class="col-lg-12 text-center text-lg-left">
+                            <h4>Seanslar ve Salonlar</h4>
+                            <div class="portfolio-menu">
+                                <hr />
+                                <ul>
+                                    @foreach (var item in Model.hallDetail)
+                                    {
+                                        if (item.DateTime.Value.ToString("dd.MM.yyyy") != ViewBag.Date)
+                                        {
+                                            <li data-filter=".@MvcMovieTicketSales.Utils.MovieTicket.Movie(item.DateTime.Value.ToString("dd.MM.yyyy"))" style="padding-top: 20px;">@item.DateTime.Value.ToString("dd.MM.yyyy")</li>
+                                        }
+                                        ViewBag.Date = item.DateTime.Value.ToString("dd.MM.yyyy");
+                                    }
+                                </ul>
+                                <hr />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row portfolio-item">
+                                @if (Model.hallDetail.Count() != 0)
+                                {
+                                    foreach (var item in Model.hallDetail)
+                                    {
+                                        <div class="col-md-4 col-sm-6 @MvcMovieTicketSales.Utils.MovieTicket.Movie(item.DateTime.Value.ToString("dd.MM.yyyy"))">
+                                            <div class="single-portfolio">
+                                                <div class="portfolio-content" align="center">
+                                                    <h3>@item.Hall.Name</h3>
+                                                    @*@foreach (var item2 in Model.movieFormatDetail.Where(x => x.HallDetailId == item.Id))
+                            {
+                                <h5>(@item2.MovieFormat.Name)</h5>
+                            }*@
+                                                    <h5>@item.MovieFormat.Name</h5>
+                                                    <h2><a href="/Ticket/Details/@item.Id" name="@item.Id" style="background:#13151f; color:white; border: 1px solid #fff; border-radius: 4px; padding: 5px;">@item.DateTime.Value.ToString("HH:mm")</a></h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <div class="col-lg-12 text-center text-lg-left" style="padding-top: 30px;">
+                                        <h4>SALONLARDA BULUNMAMAKTADIR</h4>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- details area end -->

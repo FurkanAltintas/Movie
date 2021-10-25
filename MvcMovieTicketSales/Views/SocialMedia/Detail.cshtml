@@ -1,0 +1,122 @@
+﻿@using MvcMovieTicketSales.Models.EntityFramework
+@model List<CelebriteFollow>
+
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+    int i = 0;
+}
+
+<div class="white-box">
+    @if (Model.Count() == 0)
+    {
+        <div class="alert alert-danger alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <b>@ViewBag.SocialMedia</b> hesabı olan oyuncu bulunmamaktadır.
+        </div>
+    }
+    else
+    {
+        <table id="celebriteSocial" class="table table-bordered table-hover text-center">
+            <thead>
+                <tr>
+                    <th class="text-center">#</th>
+                    <th class="text-center">ADI SOYADI</th>
+                    <th class="text-center">PROFİL</th>
+                    <th class="text-center">CİNSİYETİ</th>
+                    <th class="text-center">YAŞI</th>
+                    <th class="text-center">DOĞUM TARİHİ</th>
+                    <th class="text-center">UYRUK</th>
+                    <th class="text-center"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    i++;
+                    <tr>
+                        <td>@i</td>
+                        <td>@item.Celebrite.FullName</td>
+                        <td><a href="@item.Celebrite.Image" target="_blank"><img src="@item.Celebrite.Image" style="width: 50px; height: auto;" /></a></td>
+                        <td>@(item.Celebrite.Gender == true ? "Erkek" : "Kadın")</td>
+                        <td>
+                            @if (item.Celebrite.Birthday == null)
+                            {
+                                <p>Eklenmedi</p>
+                            }
+                            else
+                            {
+                                @(DateTime.Now.Year - item.Celebrite.Birthday.Value.Year)
+                            }
+                        </td>
+                        <td>@(item.Celebrite.Birthday != null ? item.Celebrite.Birthday.Value.ToString("dd.MM.yyyy") : "Eklenmedi")</td>
+                        <td>@(item.Celebrite.Language != null ? item.Celebrite.Language : "Eklenmedi")</td>
+                        <td>
+                            <a href="/Actors/SocialMedia/@item.Celebrite.Id" class="btn btn-primary btn-icon-split" title="Sosyal Medya">
+                                <span class="icon text-white-50">
+                                    <i class="fa fa-share"></i>
+                                </span>
+                            </a>
+
+                            <a href="/Actors/Detail/@item.Celebrite.Id" class="btn btn-warning btn-icon-split" data-toggle="tooltip" data-original-title="Detay">
+                                <span class="icon text-white-50">
+                                    <i class="fa fa-question"></i>
+                                </span>
+                            </a>
+
+                            <a href="/Actors/Update/@item.Celebrite.Id" class="btn btn-success btn-icon-split" data-toggle="tooltip" data-original-title="Güncelle">
+                                <span class="icon text-white-50">
+                                    <i class="fa fa-check"></i>
+                                </span>
+                            </a>
+
+                            <a href="/Actors/Delete/@item.Celebrite.Id" class="btn btn-danger btn-icon-split" data-toggle="tooltip" data-original-title="Sil">
+                                <span class="icon text-white-50">
+                                    <i class="fa fa-trash"></i>
+                                </span>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+<a href="@Url.Action("DetailAdd", "SocialMedia")" class="fcbtn btn btn-success btn-outline btn-1e">Sosyal Medya Ekle</a>
+
+@*<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs-3.3.7/jq-2.2.4/jszip-3.1.3/pdfmake-0.1.27/dt-1.10.15/b-1.3.1/b-html5-1.3.1/b-print-1.3.1/r-2.1.1/rg-1.0.0/datatables.min.css" />*@
+
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs-3.3.7/jq-2.2.4/jszip-3.1.3/pdfmake-0.1.27/dt-1.10.15/b-1.3.1/b-html5-1.3.1/b-print-1.3.1/r-2.1.1/rg-1.0.0/datatables.min.js"></script>
+
+<script>
+    $('#celebriteSocial').DataTable({
+        language: {
+            info: "_TOTAL_ kayıttan _START_ - _END_ kayıt gösteriliyor.",
+            infoEmpty: "Gösterilecek hiç kayıt yok.",
+            loadingRecords: "Kayıtlar yükleniyor.",
+            zeroRecords: "Tablo boş",
+            search: "Arama: ",
+            infoFiltered: "(toplam _MAX_ kayıttan filtrelenenler)",
+            buttons: {
+                copyTitle: "Tabloya kopyalandı.",
+                copySuccess: "Tabloya %d satır kopyalandı",
+                copy: "Kopyala",
+                print: "Yazdır",
+            },
+
+            paginate: {
+                first: "İlk",
+                previous: "Önceki",
+                next: "Sonraki",
+                last: "Son"
+            },
+        },
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'excel', 'pdf', 'print'
+        ],
+        responsive: true
+    });
+</script>

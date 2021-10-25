@@ -1,0 +1,31 @@
+﻿@using MvcMovieTicketSales.Models.EntityFramework
+@model List<DirectorDetail>
+
+@{
+    ViewBag.Title = "Movies";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="col-sm-12">
+    <h3>@Html.Label("Filmleri")</h3>
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-3 col-xs-12 col-sm-6">
+                <img class="img-responsive" alt="@item.Movie.Name" src="@item.Movie.Image" style="height: 600px;">
+                <div class="white-box">
+                    <div class="text-muted">
+                        <span class="m-r-10">@item.Movie.Release.Value.ToString("MMM dd")</span>
+                        <a class="text-muted m-l-10" href="#"><i class="fa fa-heart-o"></i> 38</a>
+                    </div>
+                    <h3 class="m-t-20 m-b-20">@item.Movie.Name</h3>
+                    <p>@item.Movie.Overview.Substring(0, 150)</p>
+                    <a href="/Movie/Details/@item.Movie.Id" class="btn btn-success btn-rounded waves-effect waves-light m-t-20" target="_blank">Devamını Oku</a>
+                    <a href="/Movies/MovieUpdate/@item.MovieId" class="btn btn-primary btn-rounded waves-effect waves-light m-t-20" target="_blank">Düzenle</a>
+                    <a href="/Directors/MovieDelete/@item.MovieId" class="btn btn-danger btn-rounded waves-effect waves-light m-t-20" target="_blank">Sil</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
